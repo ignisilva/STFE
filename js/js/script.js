@@ -45,6 +45,7 @@ function showMyInfo() {
 
 function init() {
   showMyInfo();
+  showPhotos();
 }
 
 //============================
@@ -65,7 +66,6 @@ function setEditMyInfo(on) {
 //============================
 function updateMyInfo() {
   // my_info 수정
-  console.log("test");
   my_info.introduction = document.querySelector("#ip-intro").value;
   my_info.as = document.querySelector(
     "#myinfo input[type=radio]:checked"
@@ -81,4 +81,84 @@ function updateMyInfo() {
   // 변경 내역 반영 (수정 모드 off)
   setEditMyInfo(false);
   showMyInfo();
+}
+
+//============================
+// 사진 및 사진 정보 보이기
+//============================
+function showPhotos() {
+  // 사진 및 사진 정보 초기화
+  var existingNodes = document.querySelectorAll(
+    "#gallery article:not(.hidden)"
+  );
+  existingNodes.forEach(function (existingNode) {
+    existingNode.remove();
+  });
+
+  // 갤러리 div 선택
+  var gallery = document.querySelector("#gallery");
+
+  // 각 사진을 썸네일로 만들어 넣음
+  photos.forEach(function (photo) {
+    console.log(photo);
+    console.log(my_info.like);
+
+    // 마련한 요소 복사하여 숨김 풀기
+    var photoNode = document.querySelector("article.hidden").cloneNode(true);
+    photoNode.classList.remove("hidden");
+
+    // 사진의 내용 채우기
+    photoNode.querySelector(".author").innerHTML = photo.user_name;
+    photoNode.querySelector(".desc").innerHTML = photo.description;
+    photoNode.querySelector(".like").innerHTML = photo.likes;
+    photoNode.querySelector(".photo").style.backgroundImage =
+      "url('./img/photo/" + photo.file_name + "')";
+
+    // 좋아요 여부 클래스로 표시
+    if (my_info.like.indexOf(photo.idx) > -1) {
+      photoNode.querySelector(".like").classList.add("on");
+    }
+
+    // Like에 클릭 이벤트(toggle 이벤트 추가)
+    photoNode.querySelector(".like").addEventListener("click", function () {
+      toggleLike(photo.idx);
+    });
+
+    // 갤러리 요소에 붙여넣기
+    gallery.append(photoNode);
+  });
+}
+
+//============================
+// 좋아요 토글
+//============================
+function toggleLike(idx) {
+  // 해당 사진이 좋아요가 아니라면 좋아요로 토글 후,
+  // 해당 사진 좋아요 갯수 증가
+  if (my_info.like.indexOf(idx) === -1) {
+    my_info.like.push(idx);
+    for (var i = 0; i < photos.length; i++) {
+      if (photos[i].idx === idx) {
+        photos[i].likes++;
+        break;
+      }
+    }
+  }
+
+  // 해당 사진이 좋아요라면, 좋아요 해제로 토글 후,
+  // 해당 사진 좋아요 갯수 감소
+  else if (my_info.like.indexOf(idx) !== -1) {
+    my_info.like = my_info.like.filter(function (it) {
+      return it !== idx;
+    });
+    for (var i = 0; i < photos.length; i++) {
+      if (photos[i].idx === idx) {
+        photos[i].likes--;
+        break;
+      }
+    }
+  }
+
+  // 사진 보이기 reset
+  showPhotos();
 }

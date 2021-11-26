@@ -151,3 +151,98 @@ function updateMyInfo () {
 
 <div class="mi-dep edit button" onclick="updateMyInfo()">확인</div>
 ```
+
+## 4) 썸네일 나타내고 좋아요 토글하기
+
+### 썸네일 화면에 생성
+
+```
+<section id="gallery" class="dep _gallery">
+  // 복사용 article 요소 추가
+  <article class="hidden">
+    <div class="photo"></div>
+    <div class="info">
+      <div class="like"></div>
+      <div class="author"></div>
+      <div class="desc">
+      </div>
+    </div>
+  </article>
+</section>
+
+// init() 함수에 추가
+showPhotos();
+
+function showPhotos () {
+  // 사진 및 사진 정보 초기화
+  var existingNodes = document.querySelectorAll(
+    "#gallery article:not(.hidden)"
+  );
+  existingNodes.forEach(function (existingNode) {
+    existingNode.remove();
+  });
+
+  // 갤러리 div 선택
+  var gallery = document.querySelector("#gallery");
+
+  // 각 사진을 썸네일로 만들어 넣음
+  photos.forEach(function (photo) {
+    // 마련한 요소 복사하여 숨김 풀기
+    var photoNode = document.querySelector("article.hidden").cloneNode(true);
+    photoNode.classList.remove("hidden");
+
+    // 사진의 내용 채우기
+    photoNode.querySelector(".author").innerHTML = photo.user_name;
+    photoNode.querySelector(".desc").innerHTML = photo.description;
+    photoNode.querySelector(".like").innerHTML = photo.likes;
+    photoNode.querySelector(".photo").style.backgroundImage
+      = "url('./img/photo/" + photo.file_name + "')";
+
+    // 좋아요 여부 클래스로 표시
+    if (my_info.like.indexOf(photo.idx) > -1) {
+      photoNode.querySelector(".like").classList.add("on");
+    }
+
+    // 갤러리 요소에 붙여넣기
+    gallery.append(photoNode);
+  })
+}
+
+```
+
+### 좋아요 토글 기능
+
+```
+//showPhoto() 함수에 추가
+photoNode.querySelector(".like").addEventListener(
+  "click", function () { toggleLike(photo.idx) }
+)
+
+function toggleLike(idx) {
+  // 해당 사진이 좋아요가 아니라면 좋아요로 토글 후,
+  // 해당 사진 좋아요 갯수 증가
+  if (my_info.like.indexOf(idx) === -1) {
+    my_info.like.push(idx);
+    for (var i = 0; i < photos.length; i++) {
+      if (photos[i].idx === idx) {
+        photos[i].likes++;
+        break;
+      }
+    }
+  }
+
+  // 해당 사진이 좋아요라면, 좋아요 해제로 토글 후,
+  // 해당 사진 좋아요 갯수 감소
+  else {
+    my_info = my_info.like.filter(function (it) {
+      return it !== idx;
+    });
+    for (var i = 0; i < photos.length; i++) {
+      if (photos[i].idx === idx) {
+        photos[i].likes--;
+        break;
+      }
+    }
+  }
+}
+```
