@@ -246,3 +246,131 @@ function toggleLike(idx) {
   }
 }
 ```
+
+## 5) 정렬 및 필터 적용
+
+### 정렬 적용
+
+- 최신순 정렬
+
+```
+photos.sort(function (a, b) {
+  return (a.idx > b.idx) ? -1 : 1;
+})
+```
+
+- 좋아요순 정렬
+
+```
+photos.sort(function (a, b) {
+  return (a.likes > b.likes) ? -1 : 1;
+})
+```
+
+### 필터 적용
+
+- 필터링된 리스트 따로 두기
+
+```
+var filtered;
+
+// 모든 사진
+filtered = photos.filter(function (it) {
+  return true;
+});
+
+// 내 사진
+filtered = photos.filter(function (it) {
+  return it.user_id === my_info.id;
+});
+
+// 내가 좋아요 한 사진
+filtered = photos.filter(function (it) {
+  return my_info.like.indexOf(it.idx) > -1;
+});
+
+// 내가 팔로우하는 사용자의 사진
+filtered = photos.filter(function (it) {
+  return my_info.follow.indexOf(it.user_id) > -1;
+});
+```
+
+### 정렬과 필터 방식 변수로 지정
+
+```
+var sort = function (a, b) { return (a.idx > b.idx) ? -1 : 1 };
+var filter = function (it) { return true; };
+
+// showPhotos()에 추가
+var filtered = photos.filter(filter);
+filtered.sort(sort);
+```
+
+### 정렬과 필터 방식 외부 변수로 두기
+
+```
+// 정렬 방식을 객체로 지정
+var sorts = {
+  recent: function (a, b) { return (a.idx > b.idx) ? -1 : 1 },
+  like: function (a, b) { return (a.likes > b.likes) ? -1 : 1 }
+}
+
+// 현재 선택된 정렬
+var sort = sorts.recent;
+
+// 필터 방식을 객체로 지정
+var filters = {
+  all: function (it) { return true; },
+  mine: function (it) { return it.user_id === my_info.id; },
+  like: function (it) { return my_info.like.indexOf(it.idx) > -1; },
+  follow: function (it) { return my_info.follow.indexOf(it.user_id) > -1; }
+}
+
+// 현재 선택된 필터
+var filter = filters.all;
+```
+
+### 버튼 함수에 정렬 및 필터 적용
+
+- 정렬 적용
+
+```
+function setSort(_sort) {
+  // 버튼 상태 변화
+  var sortButtons = document.querySelectorAll("#sorts li");
+  sortButtons.forEach(function (sortButton) {
+    sortButton.classList.remove('on');
+  })
+  document.querySelector("#sorts ." + _sort).classList.add("on");
+
+  // 선택된 정렬 방식 적용
+  sort = sorts[_sort];
+  showPhotos();
+}
+
+<ul id="sorts" class="dep _gallery">
+  <li class="recent on" onclick="setSort('recent')">최신순 보기</li>
+  <li class="like" onclick="setSort('like')">좋아요 순 보기</li>
+</ul>
+```
+
+- 필터 적용
+
+```
+function setFilter(_filter) {
+  var filterButtons = document.querySelectorAll("#filters li");
+  filterButtons.forEach(function (filterButton) {
+    filterButton.classList.remove('on');
+  });
+  document.querySelector("#filters ." + _filter).classList.add("on");
+  filter = filters[_filter];
+  showPhotos();
+}
+
+<ul id="filters" class="dep _gallery">
+  <li class="all on" onclick="setFilter('all')">전체 사진</li>
+  <li class="mine" onclick="setFilter('mine')">내 사진 사진</li>
+  <li class="like" onclick="setFilter('like')">좋아요 한 사진</li>
+  <li class="follow" onclick="setFilter('follow')">팔로우 회원 사진</li>
+</ul>
+```

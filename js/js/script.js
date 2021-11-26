@@ -84,6 +84,66 @@ function updateMyInfo() {
 }
 
 //============================
+// 정렬 및 필터 관련
+//============================
+// 정렬 방식 지정
+var sorts = {
+  recent: function (a, b) {
+    return a.idx > b.idx ? -1 : 1;
+  },
+  like: function (a, b) {
+    return a.likes > b.likes ? -1 : 1;
+  },
+};
+
+// 현재 선택된 정렬
+var sort = sorts.recent;
+
+// 필터 방식 지정
+var filters = {
+  all: function (it) {
+    return true;
+  },
+  mine: function (it) {
+    return it.user_id === my_info.id;
+  },
+  like: function (it) {
+    return my_info.like.indexOf(it.idx) > -1;
+  },
+  follow: function (it) {
+    return my_info.follow.indexOf(it.user_id) > -1;
+  },
+};
+
+// 현재 선택된 필터
+var filter = filters.all;
+
+// 정렬 적용 함수
+function setSort(_sort) {
+  // 버튼 상태 변화
+  var sortButtons = document.querySelectorAll("#sorts li");
+  sortButtons.forEach(function (sortButton) {
+    sortButton.classList.remove("on");
+  });
+  document.querySelector("#sorts li." + _sort).classList.add("on");
+
+  // 선택된 정렬 방식 적용
+  sort = sorts[_sort];
+  showPhotos();
+}
+
+// 필터 적용 함수
+function setFilter(_filter) {
+  var filterButtons = document.querySelectorAll("#filters li");
+  filterButtons.forEach(function (filterButton) {
+    filterButton.classList.remove("on");
+  });
+  document.querySelector("#filters li." + _filter).classList.add("on");
+  filter = filters[_filter];
+  showPhotos();
+}
+
+//============================
 // 사진 및 사진 정보 보이기
 //============================
 function showPhotos() {
@@ -98,11 +158,12 @@ function showPhotos() {
   // 갤러리 div 선택
   var gallery = document.querySelector("#gallery");
 
-  // 각 사진을 썸네일로 만들어 넣음
-  photos.forEach(function (photo) {
-    console.log(photo);
-    console.log(my_info.like);
+  // photos에 필터 적용 후, 정렬 적용
+  var filtered = photos.filter(filter);
+  filtered.sort(sort);
 
+  // 각 사진을 썸네일로 만들어 넣음
+  filtered.forEach(function (photo) {
     // 마련한 요소 복사하여 숨김 풀기
     var photoNode = document.querySelector("article.hidden").cloneNode(true);
     photoNode.classList.remove("hidden");
