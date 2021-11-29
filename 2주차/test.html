@@ -1,0 +1,24 @@
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <style>
+      body {
+        border: 2px solid red;
+      }
+    </style>
+  </head>
+  <body>
+    <input type="text" />
+    <button>확인</button>
+    <script>
+      var input = document.querySelector("input");
+      var button = document.querySelector("button");
+      var body = document.querySelector("body");
+      button.addEventListener("click", function () {
+        var newP = document.createElement("p");
+        newP.textContent = input.value + "님 안녕하세요.";
+        body.appendChild(newP);
+      });
+    </script>
+  </body>
+</html>
