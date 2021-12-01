@@ -64,24 +64,24 @@ viewport: application이 보이는 영역
 
 #### 오픈소스 라이선스
 
-##### Apache License
+Apache License
 
 - 아파치 재단에서 자체 소프트웨어에 적용하기 위해 만든 라이선스
 - 개인적/상업적 이용, 배포, 수정, 특허 신청 가능
 
-##### MIT License
+MIT License
 
 - MIT 공대에서 학생들을 위해 개발한 라이선스
 - 개인 소스에 해당 라이선스 사용 명시 필수
 - 이외 사용 제약 없음
 
-##### BSD License
+BSD License
 
 - BSD 대학에서 학생들을 위해 개발한 라이선스
 - 개인 소스에 해당 라이선스 사용 명시 필수
 - 이외 사용 제약 없음
 
-##### Beerware
+Beerware
 
 - 오픈소스 개발자에게 맥주를 사줘야하는 라이선스
 
@@ -637,15 +637,328 @@ vh: 뷰포트의 세로 너비 백분율
 
 #### 글꼴 문자
 
+font-size
+
+- 글자 사이즈 설정
+- property
+  - 16px: defalut
+  - px, em, rem 등 단위
+
+font-weight
+
+- 글자 두께 설정
+- property
+  - normal, 400: default
+  - bold, 700: 두껍게
+  - 100 ~ 900: 100 (얇게) <-> 900 (두껍게)
+
+font-style
+
+- 글자 기울기 설정
+- property
+  - normal: 기울기 없음
+  - italic: 이텔릭체
+
+font-family
+
+- 글씨체 설정
+- property
+  - serif: 바탕체 계열
+  - sans-serif: 고딕체 계열
+  - monospace: 고정너비 글꼴 계열
+  - cursive: 필기체 계열
+  - fantasy: 장식 글꼴 계열
+
+```
+// 글꼴 여러개를 넣는 이유는 사용자의 컴퓨터에 해당 서체가 없을 경우를 대비하기 위함
+// 글꼴의 적용 우선 순위는 앞 -> 뒤 순서
+font-family: "글꼴1", "글꼴2", ...
+```
+
+line-height
+
+- 한 줄에 대한 높이 설정
+- property
+  - normal: 브라우저 기본 정의
+  - 숫자값: 요소의 글꼴 크기의 배수로 지정 (권장)
+  - px, em, rem 등 단위
+
+color
+
+- 글자 색상 변경
+- property
+  - black: default
+  - red, orange ...
+  - rgb, rgba, #~
+
+text-align
+
+- 문자 정렬 방식
+- property
+  - left: defalut
+  - right: 오른쪽 정렬
+  - center: 가운데 정렬
+
+text-decoration
+
+- 문자 장식(선)
+- property
+  - none: default
+  - underline: 밑줄
+  - overline: 윗줄
+  - line-through: 중앙선
+
+text-indent
+
+- 문장 들여쓰기
+- 음수 값 가능(이 경우, 안쪽이 아니라 바깥쪽으로 들여쓰기 됨)
+- property
+  - 0: defalut
+  - px, em, rem 등 단위
+
 #### 배경
+
+background-color
+
+- 배경 색상 설정
+- property
+  - transparent: default, 투명함
+  - 색상 값
+
+background-image
+
+- 배경 이미지 삽입
+- property
+  - none: 이미지 없음
+  - url("경로"): 이미지 경로
+
+background-repeat
+
+- 배경 이미지 반복
+- property
+  - repeat: default, 이미지 수직, 수평 반복
+  - repeat-x: 이미지를 수평 반복
+  - repeat-y: 이미지를 수직 반복
+  - no-repeat: 이미지 반복 없음
+
+background-position
+
+- 배경 이미지 위치 설정
+- property
+  - top, bottom, left, right, center
+  - px, em, rem 등 단위
+
+```
+// 우상단
+background-position: top right;
+
+// 중앙
+background-position: center;
+
+// x: 100px, y: 300px 좌표에서 이미지 생성
+background-position: 100px 300px;
+```
+
+background-size
+
+- 배경 이미지 크기
+  - property
+    - auto: default, 이미지 실제 크기
+    - px, em, rem 등 단위
+    - cover: 비율 유지, x or y 중 긴 너비에 맞춤
+    - contain: 비율 유지, x or y 중 짧은 너비에 맞춤
+
+background-attachment
+
+- 배경 이미지 스크롤 속성
+- property
+  - scroll: default, 이미지 요소를 따라서 같이 스크롤
+  - fixed: 이미지가 뷰포트에 고정, 스크롤 X
 
 #### 배치
 
+position
+
+- 요소 위치 지정
+- property
+  - static: default, 기준 없음
+  - relative: 요소 자신을 기준 (위치상 부모 요소로 설정할 때 많이 사용)
+  - absolute: 위치상 부모 요소 기준 (부모 요소에 relative가 없다면, viewport을 기준으로 잡음)
+  - fixed: 뷰포트 기준
+- position에 따른 display요소 변경
+  - absolute, fixed 요소는 display가 block으로 변경됨
+
+top, bottom, left, right
+
+- 요소의 방향별 거리 지정
+- property
+  - auto: default
+  - px, em, rem 등 단위
+
+z-index
+
+- 요소 쌓임 순서 지정
+- property
+  - auto: 0
+  - 숫자값: 숫자값 높을 수록 위에 쌓임 (너무 높은 숫자를 쓰지않도록 조심해서 다룰 것)
+
+요소 쌓임 순서
+
+- 어떤 요소가 사용자와 더 가깝게 있는지 결정
+
+```
+1) 요소에 position 값이 있는 경우 위에 쌓임
+2) 1번이 같다면, z-index값 비교, z-index 값이 클수록 위에 쌓임
+3) 1번 2번이 같다면, HTML로 봤을때, 나중에 생성된 요소일수록 위에 쌓임
+```
+
 #### 플렉스(정렬)
+
+Flex Container
+
+- flex block 요소
+- flex container에 영향을 끼치는 property
+  - display
+    - flex: 블록 요소 flex container 생성
+    - inline-felx: 인라인 요소 felx container 생성
+  - flex-flow
+  - flex-direction
+    - 요소가 쌓이는 방향 기준
+    - row: default, 좌 -> 우
+    - row-reverse: 우 -> 좌
+  - flex-wrap
+    - 넘치는 요소에 대한 줄바꿈 여부
+    - nowrap: 줄바꿈 없음
+    - wrap: 여러 줄로 묶음
+  - justify-content
+    - 주 축 정렬 방법
+    - felx-start: default, 시작점 정렬
+    - felx-end: 끝점 정렬
+    - center: 가운데 정렬
+  - align-content
+    - 교차 축 정렬 방법
+    - stretch: default, 시작점 정렬
+    - felx-start: 시작점 정렬
+    - felx-end: 끝점 정렬
+    - center: 가운데 정렬
+  - align-items
+    - 교차 축의 한 줄에 대한 정렬 방법
+    - stretch: flex items를 교차 축으로 늘림
+    - felx-start: flex items를 각 줄 시작점 정렬
+    - felx-end: flex items를 각 줄 끝점 정렬
+    - center: flex items를 각 줄 가운데 정렬
+
+Flex Items
+
+- flex의 자식 요소들
+- felx items에 영향을 끼치는 property
+  - order
+    - flex item 정렬 순서
+    - 0: default, 순서 없음
+    - 숫자: 숫자가 작을수록 먼저 (음수 가능)
+  - flex
+  - flex-grow
+    - 너비 증가 비율
+    - 0: default, 증가 비율 없음
+    - 숫자: 증가 비율, flex-grow가 0인 요소를 제외하고 나머지 끼리 flex-grow를 통해 container의 너비에서 x:y:... 의 비율로 증가
+  - flex-shrink
+    - 너비 감소 비율
+    - 1: default, Flex Container의 너비에 따라 감소 적용
+    - 숫자: 감소 비율 (보통 0 사용 -> 아이템이 부모의 크기를 고려하지 않고 각각의 크기 원래 비율을 유지함)
+  - flex-basis
+    - Flex Items에 해당하는 요소의 기본 너비
+    - flex-grow와 함께 사용, item 내부 요소의 공간 영역을 구애받지 않고, flex-grow 비율을 맞추기 위해 flex-basis: 0 사용
+    - auto: 요소의 Content 너비
+    - px, em, rem 등 단위 (보통 0으로 사용, )
+  - align-self
 
 #### 전환
 
+transition
+
+- 전환 효과를 지정
+- transition: 속성명 지속시간 타이밍함수 대기시간;
+  - transition-property (속성명)
+    - 전환 효과를 받는 속성 지정
+    - all: defalut, 모든 속성에 적용
+    - 속성명: 전환 효과를 사용할 속성명 명시
+  - transition-duration (지속시간)
+    - 전환 효과 시간 설정
+    - 0s: default
+    - ns: n시간 만큼 효과 발생
+  - transition-timing-function (타이밍함수)
+    - 전환 효과가 어떻게 보일지에 대한 타이밍함수 설정
+    - ease: default, 느리게 - 빠르게 - 느리게
+    - linear: 일정하게
+    - ease-in: 느리게 - 빠르게
+    - ease-out: 빠르게 - 느리게
+    - ease-in-out: 느리게 - 빠르게 - 느리게
+    - ref: [easing 기능 시각화 사이트](https://easings.net/ko)
+  - transition-delay (대기시간)
+    - 전환 효과가 몇 초 뒤에 시작할지 대기시간 설정
+    - 0s: default
+    - ns: n시간 후 전환효과 발생
+
+```
+// 가로 너비, 1초간, linear 방식으로, 0.2초 후에 전환 효과 발생
+transition: width, 1s, linear, .2s
+
+// 가로 너비, 1초간, linear 방식으로, 0.2초 후에 전환 효과 발생
+// 높이 너비, 2초간, ease 방식으로, 대기시간 없이 전환 효과 발생
+transition:
+  width, 1s, linear, .2s;
+  height, 2s;
+```
+
 #### 변환
+
+transform
+
+- 해당 요소에 변환 함수를 적용
+
+```
+transform: 변환함수1 변환함수2 변환함수3 ...;
+```
+
+- 사용 가능한 2D 변환 함수
+  - translate(xpx, ypx)
+    - x, y 값만큼 x, y 이동
+  - translateX(xpx)
+    - x 값만큼 x 이동
+  - translateY(ypx)
+    - y 값만큼 y 이동
+  - scale(n) or scale(x, y)
+    - n 비율로 가로 세로 증가 or 감소 (소수값)
+    - 가로는 x 비율, 세로는 y 비율로 증가 or 감소 (소수값)
+  - rotate(ndeg)
+    - n각도 만큼 회전
+  - skewX(ndeg)
+    - 가로 방향으로 n각도 만큼 도형 찌그러트리기(평행사변형 생성)
+  - skewY(ndeg)
+    - 세로 방향으로 n각도 만큼 도형 찌그러트리기(평행사변형 생성)
+- 사용 가능한 3D 변환 함수
+  - perspective(npx)
+    - 3D 적용시, 가장 먼저 적용되야하는 함수
+    - 원근법 적용, n값이 높을수록 더 눕는 모양
+    - 관찰 대상을 기준으로 적용
+  - rotateX(ndeg)
+    - x 축을 기준으로 n각도 만큼 회전
+  - rotateY(ndeg)
+    - y 축을 기준으로 n각도 만큼 회전
+
+perspective
+
+- 원근법 적용, n값이 높을수록 더 눕는 모양
+- 해당 속성이 적용된 요소에 원근법 적용
+- property
+  - px 단위
+
+backface-visibility
+
+- 뒷면 숨김 여부
+- property
+  - visible: default, 뒷면 보임
+  - hidden: 뒷면 숨김
 
 #### 띄움
 
