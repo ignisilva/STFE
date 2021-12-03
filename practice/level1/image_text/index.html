@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>image-text</title>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css"
+    />
+    <style>
+      main {
+        width: 1143px;
+        height: 342px;
+        position: relative;
+      }
+      section {
+        background-color: lightgray;
+        width: 1105px;
+        height: 230px;
+        position: absolute;
+        top: 17px;
+        left: 19px;
+      }
+      section > .image {
+        width: 369px;
+        height: 230px;
+        float: left;
+        position: relative;
+      }
+      section > .image > img {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+      }
+      section > .texts {
+        float: right;
+        width: 736px;
+        height: 230px;
+      }
+      section > .texts > .text {
+        font-size: 17px;
+        font-weight: 500;
+      }
+      section > .texts > .text > strong {
+        color: lightseagreen;
+        display: block;
+        margin-bottom: 6px;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <section>
+        <div class="image">
+          <img src="../images/temp_eye.png" alt="David's art" />
+        </div>
+        <div class="texts">
+          <div class="text">
+            <br />
+            <strong>David Lanham</strong>
+            <p>
+              One of my favorite drawings in a while and it happend to make a
+              great wallpaper for my iPhone's lock screen too :D
+            </p>
+          </div>
+          <div class="text">
+            <br />
+            <strong>Gavin Nelson</strong>
+            <p>your wallpapers are best, David! thanks for sharing.</p>
+          </div>
+          <div class="text">
+            <br />
+            <strong>Marcel Heymann</strong>
+            <p>
+              The combination of colors here is absolutely stunning. You're one
+              of a kind, David.
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
