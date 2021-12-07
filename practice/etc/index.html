@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./reset.css" />
+    <style>
+      .outbox {
+        background-color: lightgreen;
+        padding: 26px 36px;
+      }
+      .outbox::after {
+        content: "";
+        display: block;
+        clear: both;
+      }
+      .inbox {
+        float: left;
+        width: 23.148148%;
+        /*padding-top/bottom : 부모 상자의 width 값에 반응하여 padding 길이 설정*/
+        padding-top: 23.148148%;
+        background-color: yellow;
+      }
+      .inbox + .inbox {
+        margin-left: 2.469135%;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="outbox">
+      <div class="inbox"></div>
+      <div class="inbox"></div>
+      <div class="inbox"></div>
+      <div class="inbox"></div>
+    </div>
+  </body>
+</html>
