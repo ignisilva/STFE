@@ -1,0 +1,205 @@
+@charset 'utf-8';
+/* 웹폰트 설정 */
+@import url("https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&family=Roboto:wght@400;700&display=swap");
+
+/* reset */
+body {
+  font: normal 16px "Roboto", sans-serif;
+  line-height: 1.2;
+  color: #333;
+  background-color: #eee;
+  margin: 0;
+  padding: 0;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: 1em;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+div,
+p,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+form,
+fieldset,
+blockquote,
+address,
+table,
+thead,
+tbody,
+tfoot,
+tr,
+td,
+caption {
+  margin: 0;
+  padding: 0;
+  /* box-sizing: border-box; */
+}
+li {
+  list-style: none;
+}
+a {
+  text-decoration: none;
+}
+button {
+  border: none;
+}
+
+/* 공통요소 */
+.hidden {
+  font-size: 0;
+}
+
+.btn {
+  color: #fff;
+}
+.btn.btn--small {
+  font-size: 10px;
+  padding: 5px 10px;
+  border-radius: 8px;
+}
+.btn.btn--big {
+  font-size: 14px;
+  padding: 10px 25px;
+  border-radius: 13px;
+}
+.btn.btn--green {
+  background-color: #27ae60;
+}
+.btn.btn--red {
+  background-color: #eb5757;
+}
+
+/* typograph: 본문 및 타이틀에 사용되는 것들 */
+.title {
+  font-size: 24px;
+  font-weight: 700;
+  color: black;
+}
+.writer {
+  color: #4f4f4f;
+  font-size: 14px;
+  font-weight: 400;
+  display: block;
+  margin: 5px 0;
+}
+
+/* card layout */
+.card {
+  width: 280px;
+  /* height: 280px; */
+  background-color: #fff;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin: 20px auto;
+  overflow: hidden;
+}
+
+/* index */
+.index {
+  padding: 16px 14px;
+  height: 27px;
+  color: black;
+}
+
+.index > .avatar {
+  /* img와 strong은 둘다 inline 속성이라 enter가 들어가면 사이에 빈문자가 들어감 */
+  /* img와 strong 사이의 빈문자 사이즈를 0으로 만들어서 빈공간을 없앰 */
+  font-size: 0;
+  float: left;
+  position: relative;
+}
+
+.index > .avatar > img {
+  /* img와 글자를 중앙 정렬하기위한 작업 */
+  vertical-align: -7px; /* 글자 베이스 라인을 내려서 이미지를 내림 */
+  margin-right: 3px; /*이미지와 strong 사이 공간 생성*/
+}
+
+.index > .avatar > .numbering {
+  font-size: 10px;
+  font-weight: 700;
+  text-align: center;
+  color: #27ae60;
+  border: 2px solid #27ae60;
+  border-radius: 10px;
+  min-width: 20px;
+  height: 20px;
+  position: absolute;
+  padding: 2px;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  transform: translate(100%, -50%);
+  line-height: 1.5;
+}
+
+.index > .avatar > .numbering > i {
+  font-style: normal;
+  position: relative;
+  top: -2px;
+}
+
+.index > .avatar > strong {
+  font-size: 14px;
+}
+
+.index > .sns {
+  font-size: 0;
+  float: right;
+  margin-top: 4px;
+}
+
+.index > .sns > div {
+  display: inline-block;
+}
+
+.index > .sns > div + div {
+  margin-left: 12px;
+}
+
+.index > .sns > div > span {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.index > .sns > div > img {
+  vertical-align: -5px;
+}
+
+/* photo */
+.photo > img {
+  /* 사진 아래 베이스 라인 제거 (vertical-align or display block) */
+  /* display: block; */ /* 베이스라인은 인라인에만 있으므로, block으로 바꿔서 제거*/
+  vertical-align: top; /* 베이스라인 위치 top 으로 변경*/
+}
+
+/* article */
+article {
+  padding: 12px 16px;
+}
+article > .writer {
+  margin: 5px 0;
+}
+
+/* title */
+.title_area {
+  padding: 10px;
+}
+
+.title_area > .title {
+  margin: 5px 0;
+}
