@@ -48,38 +48,57 @@
 
     <link rel="stylesheet" href="./css/main.css" />
 
-    <!--scripts-->
+    <!--lodash-->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"
       integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+
+    <!--gsap-->
     <script
       src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js"
       integrity="sha512-eP6ippJojIKXKO8EPLtsUMS+/sAGHGo1UN/38swqZa1ypfcD4I0V/ac5G3VzaHfDaklFmQLEs51lhkkVaqg60Q=="
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+
+    <!--Swiper-->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/swiper/swiper-bundle.min.css"
+    />
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
     <script defer src="./js/main.js"></script>
   </head>
   <body>
-    <!-- HEADER -->
+    <!--HEADER-->
     <header>
       <div class="inner">
         <a href="/" class="logo">
           <img src="./images/starbucks_logo.png" alt="STARBUCKS" />
         </a>
+
         <div class="sub-menu">
           <ul class="menu">
-            <li><a href="/signin">Sign In</a></li>
-            <li><a href="javascript:void(0)">My Starbucks</a></li>
-            <li><a href="javascript:void(0)">Customer Service & Ideas</a></li>
-            <li><a href="javascript:void(0)">Find a Store</a></li>
+            <li>
+              <a href="/signin">Sign In</a>
+            </li>
+            <li>
+              <a href="javascript:void(0)">My Starbucks</a>
+            </li>
+            <li>
+              <a href="javascript:void(0)">Customer Service & Ideas</a>
+            </li>
+            <li>
+              <a href="javascript:void(0)">Find a Store</a>
+            </li>
           </ul>
           <div class="search">
             <input type="text" />
-            <div class="material-icons">search</div>
+            <span class="material-icons">search</span>
           </div>
         </div>
 
@@ -203,7 +222,7 @@
               </div>
               <div class="contents__texture">
                 <div class="inner">
-                  <h4 class="new">스타벅스 티바나</h4>
+                  <h4>스타벅스 티바나</h4>
                   <p>
                     다양한 찻잎과 향신료 등 개성있는 재료로 새로운 맛과 향의
                     티를 선보입니다.
@@ -239,7 +258,7 @@
                 <div class="inner">
                   <h4>매장 찾기</h4>
                   <p>보다 빠르게 매장을 찾아보세요.</p>
-                  <h4 class="new">청담스타</h4>
+                  <h4>청담스타</h4>
                   <p>스타벅스 1,000호점인 청담스타점을 만나보세요.</p>
                 </div>
               </div>
@@ -387,7 +406,8 @@
           </li>
         </ul>
       </div>
-      <!--badges-->
+
+      <!--BADGES-->
       <div class="badges">
         <div class="badge">
           <img src="./images/badge1.jpg" alt="Badge" />
@@ -398,7 +418,7 @@
       </div>
     </header>
 
-    <!--banner-->
+    <!--VISUAL-->
     <section class="visual">
       <div class="inner">
         <div class="title fade-in">
@@ -423,7 +443,7 @@
         <div class="fade-in">
           <img
             src="./images/visual_cup2.png"
-            alt="STARBUCKS CARMEL CRUMBLE MOCHA"
+            alt="new STARBUCKS CARAMEL CRUMBLE MOCHA"
             class="cup2 image"
           />
           <img
@@ -433,11 +453,107 @@
           />
         </div>
         <div class="fade-in">
-          <img
-            src="./images/visual_spoon.png"
-            alt="Spoon"
-            class="spoon image"
-          />
+          <img src="./images/visual_spoon.png" alt="Spoon" class="spoon" />
+        </div>
+      </div>
+    </section>
+
+    <!--NOTICE-->
+    <section class="notice">
+      <!--NOTICE LINE-->
+      <div class="notice-line">
+        <div class="bg-left"></div>
+        <div class="bg-right"></div>
+        <div class="inner">
+          <div class="inner__left">
+            <h2>공지사항</h2>
+            <div class="swiper-container">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <a href="javascript:void(0)"
+                    >크리스마스 & 연말연시 스타벅스 매장 영업시간 변경 안내</a
+                  >
+                </div>
+                <div class="swiper-slide">
+                  <a href="javascript:void(0)"
+                    >[당첨자 발표] 2021 스타벅스 플래너 영수증 이벤트</a
+                  >
+                </div>
+                <div class="swiper-slide">
+                  <a href="javascript:void(0)"
+                    >스타벅스커피 코리아 애플리케이션 버전 업데이트 안내</a
+                  >
+                </div>
+                <div class="swiper-slide">
+                  <a href="javascript:void(0)"
+                    >[당첨자 발표] 뉴이어 전자영수증 이벤트</a
+                  >
+                </div>
+              </div>
+            </div>
+            <a href="javascript:void(0)" class="notice-line__more">
+              <span class="material-icons">add_circle</span>
+            </a>
+          </div>
+
+          <div class="inner__right">
+            <h2>스타벅스 프로모션</h2>
+            <div class="toggle-promotion">
+              <div class="material-icons">upload</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--PROMOTION-->
+      <div class="promotion">
+        <div class="swiper-container">
+          <div class="swiper-wrapper">
+            <div class="swiper-slide">
+              <img
+                src="./images/promotion_slide1.jpg"
+                alt="2021 뉴이어, 스타벅스와 함께 즐겁고 활기차게 시작하세요!"
+              />
+              <a href="javascript:void(0)" class="btn">자세히 보기</a>
+            </div>
+            <div class="swiper-slide">
+              <img
+                src="./images/promotion_slide2.jpg"
+                alt="기간 내 스타벅스 카드 e-Gift를 3만원 이상 선물 시, 아메리카노 e-쿠폰을 드립니다."
+              />
+              <a href="javascript:void(0)" class="btn">자세히 보기</a>
+            </div>
+            <div class="swiper-slide">
+              <img
+                src="./images/promotion_slide3.jpg"
+                alt="뉴이어 푸드와 제조 음료를 세트로 구매 시, 뉴이어 음료 BOGO(1+1) 쿠폰을 드립니다."
+              />
+              <a href="javascript:void(0)" class="btn">자세히 보기</a>
+            </div>
+            <div class="swiper-slide">
+              <img
+                src="./images/promotion_slide4.jpg"
+                alt="신년 MD 상품 포함 3만원 이상 구매 고객께 아메리카노(톨사이즈) 쿠폰을 드립니다."
+              />
+              <a href="javascript:void(0)" class="btn">자세히 보기</a>
+            </div>
+            <div class="swiper-slide">
+              <img
+                src="./images/promotion_slide5.jpg"
+                alt="2017 DIGITAL LUCKY DRAW 100% 당첨의 행운을 드립니다!"
+              />
+              <a href="javascript:void(0)" class="btn">자세히 보기</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="swiper-pagination"></div>
+
+        <div class="swiper-prev">
+          <span class="material-icons">arrow_back</span>
+        </div>
+        <div class="swiper-next">
+          <span class="material-icons">arrow_forward</span>
         </div>
       </div>
     </section>
