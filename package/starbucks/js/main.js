@@ -78,6 +78,17 @@ new Swiper(".promotion .swiper-container", {
   },
 });
 
+new Swiper(".awards .swiper-container", {
+  slidesPerView: 5, // 한번에 보여줄 슬라이드 수
+  spaceBetween: 30, // 슬라이드 사이 여백(px)
+  autoplay: true,
+  loop: true,
+  navigation: {
+    prevEl: ".awards .swiper-prev",
+    nextEl: ".awards .swiper-next",
+  },
+});
+
 // promotion 열기 / 닫기
 const promotionEl = document.querySelector(".promotion");
 const promotionToggleBtn = document.querySelector(".toggle-promotion");
@@ -113,3 +124,14 @@ function floatingObject(selector, delay, size) {
 floatingObject(".floating1", 1, 15);
 floatingObject(".floating2", 0.5, 15);
 floatingObject(".floating3", 1.5, 20);
+
+// 스크롤 위치 계산 애니메이션
+const spyEls = document.querySelectorAll("section.scroll-spy");
+spyEls.forEach(function (spyEl) {
+  new ScrollMagic.Scene({
+    triggerElement: spyEl, // 스크롤 상태를 체크 할 요소
+    triggerHook: 0.8, // 트리거가 되는 화면상에서의 스크롤 위치
+  })
+    .setClassToggle(spyEl, "show") // 트리거 발생시, 'show' 클래스 토글
+    .addTo(new ScrollMagic.Controller());
+});
