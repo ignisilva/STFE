@@ -18,14 +18,13 @@ searchInputEl.addEventListener("blur", function () {
 
 // Header badge 일정 이상 스크롤시, 투명화 처리
 const badgeEl = document.querySelector("header .badges");
-
+const toTopEl = document.querySelector("#to-top");
 window.addEventListener(
   "scroll",
   _.throttle(function () {
     // _.throttle(함수, 시간)
     // event가 너무 많이 발생되어 생기는 부하를 줄여줌
     // throttle n초마다 익명함수를 실행
-    console.log("scroll");
     if (window.scrollY > 500) {
       // 배지 숨기기
       // gsap.to(요소, 지속시간, 옵션)
@@ -33,15 +32,30 @@ window.addEventListener(
         opacity: 0,
         display: "none",
       });
+      // 상단 이동 버튼 보이기
+      gsap.to(toTopEl, 0.2, {
+        x: 0,
+      });
     } else {
       // 배지 보이기
       gsap.to(badgeEl, 0.6, {
         opacity: 1,
         display: "block",
       });
+      // 상단 이동 버튼 숨기기
+      gsap.to(toTopEl, 0.2, {
+        x: 100,
+      });
     }
   }, 300)
 );
+
+// 상단 이동 버튼 클릭시 이동
+toTopEl.addEventListener("click", function () {
+  gsap.to(window, 0.7, {
+    scrollTo: 0,
+  });
+});
 
 // banner 이미지 순차 등장 기능
 const fadeEls = document.querySelectorAll(".visual .fade-in");
@@ -135,3 +149,7 @@ spyEls.forEach(function (spyEl) {
     .setClassToggle(spyEl, "show") // 트리거 발생시, 'show' 클래스 토글
     .addTo(new ScrollMagic.Controller());
 });
+
+// footer 자동 연도 계산
+const thisYear = document.querySelector(".this-year");
+thisYear.textContent = new Date().getFullYear();
