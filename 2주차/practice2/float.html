@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      li {
+        list-style: none;
+      }
+      body {
+        padding: 20px;
+      }
+      a {
+        text-decoration: none;
+      }
+      .mother {
+        width: 270px;
+        padding: 20px;
+        border: 2px solid lime;
+        /* layouting을 두번 하기 위해 사용 */
+        overflow: hidden;
+        margin-bottom: 20px;
+      }
+      .photo {
+        width: 100px;
+        height: 100px;
+        margin-right: 20px;
+        border: 10px solid lime;
+        float: left;
+      }
+      .mother > p {
+        margin-left: 20px;
+      }
+      .mother > .fix {
+        border: 1px solid blue;
+        clear: left;
+      }
+      .mother .left {
+        float: left;
+      }
+      .mother .right {
+        float: right;
+      }
+      .grandmom {
+        width: 750px;
+        border: 2px solid black;
+        padding: 20px;
+        overflow: hidden;
+      }
+      .bottom {
+        border: 2px solid red;
+        clear: both;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grandmom">
+      <div class="mother left">
+        <div class="photo"></div>
+        <p>mother left</p>
+      </div>
+      <div class="mother right">
+        <div class="photo"></div>
+        <p>mother right</p>
+      </div>
+      <div class="bottom">bottom</div>
+    </div>
+  </body>
+</html>

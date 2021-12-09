@@ -182,9 +182,71 @@ flex 대신 float 또는 liline-block
 
 head / style 태그 등도 상자로써 영역이 있다. 브라우저 css에 의해 영역이 없어지게 만들어 놓을뿐
 
-글자가 생기는 과정
-
-1. 익명 인라인 상자 생성
-2.
-
 HTML CSS 구성시, 데이터에 영향받지 않는 것이 중요
+
+글자가 겹치는 상황  
+line-height < font-size
+
+이미지를 베이스라인 밑으로 내리는 방법?  
+vertical align
+
+코딩순서 (밖의 레이아웃부터 안쪽 레이아웃 순으로)
+
+1. 선을 긋는다
+2. 넓이 높이 패딩 마진
+3. 디테일한 모양 작업(색 글씨 크기 등)
+4. float 작업 (or grid flex)
+5. 정리(clear)
+
+### Figma 핵심
+
+단축키
+
+- 스케치북 내 이동: space + 마우스
+- zoom in-out: ctrl + 마우스 휠
+
+왼쪽 바: 생성된 오브젝트 목록
+오른쪽 바: 선택된 오브젝트 속성 설정
+
+\# : 작은 종이 놓기
+
+#### 속성
+
+일반 속성
+
+- auto layout: 자동으로 frame 크기를 자식들의 크기에 맞추기, 자식들의 위치를 수직/수평 방향으로 설정 가능
+
+- create component: component class화
+
+  - alt + 마우스: class로 instance 생성
+  - create component set: 설정에 따라 instance가 변화하는 class 생성
+
+- inspect: 현재 속성 살펴보기
+
+자식 속성
+
+- contrains: position top left right bottom 설정
+
+### 참고
+
+reset.css
+
+- 기본 글자색 및 line-height: 디자인된 본문(p태그 등)의 글자 색 및 글 높이를 기본으로 하는게 좋다
+
+### Javascript
+
+[js 코드 메모리 보면서 코딩 웹사이트](https://pythontutor.com/)
+
+js는 모든 것을 객체화 해서 관리한다
+
+- 배열 -> 실제 배열이 아니라 index를 해시값으로 해서 key로 가짐
+
+```
+<script>
+debugger <- 키워드 쓰면, 개발자 도구 -> Sources -> Scope에서 디버깅 가능
+</script>
+```
+
+#### 면접 질문
+
+스코프 체인, 클로저, 블록 스코프, 런타임, 스레드, nodejs(비동기 이벤트 핸들러 방식)
