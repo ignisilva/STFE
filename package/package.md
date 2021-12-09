@@ -31,6 +31,29 @@ W3C의 표준화 제정단계?
 window: 브라우저 창 전체  
 viewport: application이 보이는 영역
 
+브라우저가 제공하는 것들
+
+- 브라우저 인터페이스
+- 랜더링엔진
+  - Parsing
+    - Token 파싱
+  - DOM
+    - HTML 구문 분석
+  - CSSOM(Css Object Model)
+    - 브라우저 기본 CSS + 사용자 CSS 고려해서 CSS 분석
+  - Render tree
+    - 실제로 보여야 할 것만 Render tree에 추가
+  - Layout
+    - Render tree를 기준으로 상자의 위치 및 크기를 계산 하고 영역 놓기
+    - BFC(Block Formatted Context)
+      - 중요
+  - Paint
+    - Layout위 pixel에 색을 입히는 단계
+- JS 엔진
+- OS 공통 UI
+- 통신
+- Data 저장
+
 #### 웹에서 사용하는 이미지(Bitmap / Vector)
 
 비트맵(=래스터)
@@ -775,6 +798,10 @@ background-attachment
   - scroll: default, 이미지 요소를 따라서 같이 스크롤
   - fixed: 이미지가 뷰포트에 고정, 스크롤 X
 
+Object-fit: cover;
+
+- block 요소에 넣어진 이미지가 중앙 정렬이 필요할 때
+
 #### 배치
 
 position
@@ -787,6 +814,7 @@ position
   - fixed: 뷰포트 기준
 - position에 따른 display요소 변경
   - absolute, fixed 요소는 display가 block으로 변경됨
+  - absolute, fixed 요소는 일반적인 block요소와는 다르게 width가 최소한의 값을 사용하도록 바뀜
 
 top, bottom, left, right
 
@@ -960,12 +988,276 @@ backface-visibility
   - visible: default, 뒷면 보임
   - hidden: 뒷면 숨김
 
-#### 띄움
+#### 설명 못들은 기타 내용
 
-#### 애니메이션
+띄움 / 애니메이션 / 그리드 / 다단 / 필터
 
-#### 그리드
+### JS 선행
 
-#### 다단
+#### DOM API
 
-#### 필터
+DOM?  
+Document Object Model 약자 (HTML의 내용 의미)
+
+API?  
+Application Programin Interface (제어시 사용하는 명령들)
+
+#### 메소드 체이닝
+
+함수를 연달아서 쓰는 것
+
+### 스타벅스 토이 프로젝트
+
+[스타벅스 git 링크](https://github.com/ParkYoungWoong/starbucks-vanilla-app)
+
+#### 프로젝트 시작, 스타일 초기화, favicon
+
+favicon
+
+- favicon.ico은 루트 경로 위치
+- favicon.png를 icon으로 쓸 경우
+  - ```
+      <link rel="icon" href="./favicon.png" />
+    ```
+
+reset.css 적용
+
+```
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reset-css@5.0.1/reset.min.css" />
+```
+
+main.css 적용
+
+```
+<link rel="stylesheet" href="./main.css" />
+```
+
+#### 오픈 그래프와 트위터 카드
+
+오픈 그래프 (The Open Graph protocol)  
+웹페이지가 소셜 미디어로 공유될 때 우선적으로 활용되는 정보 지정
+
+```
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Starbucks" />
+<meta property="og:title" content="Starbucks Coffee Korea" />
+<meta property="og:description" content="스타벅스는 세계에서 가장 큰 다국적 커피전문점입니다." />
+<meta property="og:image" content="./images/starbucks_seo.jpg" />
+<meta property="og:url" content="https://starbucks.co.kr" />
+```
+
+트위터 카드(Twitter Cards)  
+트위터에서 내놓은 오픈 그래프와 유사한 프로토콜
+
+```
+<meta property="twitter:card" content="summary">
+<meta property="twitter:site" content="Starbucks">
+<meta property="twitter:title" content="Starbucks Coffee Korea">
+<meta property="twitter:description" content="스타벅스는 세계에서 가장 큰 다국적 커피전문점입니다.">
+<meta property="twitter:image" content="./images/starbucks_seo.jpg">
+<meta property="twitter:url" content="https://starbucks.co.kr">
+```
+
+#### Google Fonts
+
+폰트는 생각보다 용량이 크므로, 남용하지 않을 것
+
+Google Fonts에서 cdn 방식으로 원하는 폰트를 사이즈에 맞추어 가져올 것  
+(현 프로젝트에서는 medium(400), bold(700)만 가져옴)
+
+```
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700&display=swap" rel="stylesheet">
+```
+
+CSS로 font를 적용
+
+```
+body {
+  font-family: 'Nanum Gothic', sans-serif;
+}
+```
+
+#### Google Material Icons
+
+Material icons 적용
+
+```
+<head>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+</head>
+```
+
+#### 헤더와 드롭다운 메뉴
+
+BEM? (Block Element Modifier)
+클래스 속성의 작명법을 의미
+
+```
+요소__일부분
+or
+요소--상태
+```
+
+```
+요소__일부분 예시)
+
+<div class="container">
+  <div class="name"></div>
+  <div class="item">
+    <div class="name">
+  </div>
+</div>
+
+=> name 클래스의 중복 발생
+
+<div class="container">
+  <div class="container__name"></div>
+  <div class="item">
+    <div class="item__name">
+  </div>
+</div>
+```
+
+```
+요소--상태 예시)
+
+<div class="btn primary"></div>
+<div class="btn success"></div>
+<div class="btn error"></div>
+
+<div class="btn btn--primary"></div>
+<div class="btn btn--success"></div>
+<div class="btn btn--error"></div>
+```
+
+lodash를 사용한 scroll 호출 제어
+lodash?  
+일반적인 프로그래밍 작업을위한 유틸리티 기능을 제공하는 JavaScript 라이브러리
+
+```
+CDN 방식
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" integrity="sha512-WFN04846sdKMIP5LKNphMaWzU7YpMyCU245etK3g/2ARYbPK9Ub18eG+ljU96qKRCWh+quCY7yefSmlkQw1ANQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+```
+
+gsap을 사용한 애니메이션
+gsap?  
+애니메이션 라이브러리
+
+```
+cdn 방식
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/gsap.min.js" integrity="sha512-eP6ippJojIKXKO8EPLtsUMS+/sAGHGo1UN/38swqZa1ypfcD4I0V/ac5G3VzaHfDaklFmQLEs51lhkkVaqg60Q==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+```
+
+#### 순차적 애니메이션
+
+이미지에 문구가 있다면, 그 문구를 img 태그의 alt에 써주는 것이 좋다
+
+#### 요소 슬라이드
+
+Swipper  
+수직 슬라이드 애니메이션 lib
+
+```
+CDN
+<link
+  rel="stylesheet"
+  href="https://unpkg.com/swiper/swiper-bundle.min.css"
+/>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+```
+
+#### Youtube iframe API
+
+[IFrame Player API?](https://developers.google.com/youtube/iframe_api_reference?hl=ko)  
+YouTube 동영상을 제어 라이브러리
+
+```
+<!-- in HEAD -->
+<script defer src="./js/youtube.js"></script>
+
+<!-- in BODY -->
+<div id="player"></div>
+```
+
+**onYouTubePlayerAPIReady** 함수 이름은 Youtube IFrame Player API에서 사용하는 이름이기 때문에 다르게 지정하면 동작하지 않습니다!
+그리고 함수는 전역(Global) 등록해야 합니다!
+
+[playerVars에 대한 더 많은 옵션](https://developers.google.com/youtube/player_parameters.html?playerVersion=HTML5&hl=ko#Parameters)
+
+```
+// Youtube IFrame API를 비동기로 로드합니다.
+var tag = document.createElement('script');
+tag.src = "https://www.youtube.com/iframe_api";
+var firstScriptTag = document.getElementsByTagName('script')[0];
+firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+function onYouTubePlayerAPIReady() {
+  // <div id="player"></div>
+  new YT.Player('player', {
+    videoId: 'An6LvWQuj_8', // 재생할 유튜브 영상 ID
+    playerVars: {
+      autoplay: true, // 자동 재생 유무
+      loop: true, // 반복 재생 유무
+      playlist: 'An6LvWQuj_8' // 반복 재생할 유튜브 영상 ID 목록
+    },
+    events: {
+      // 영상이 준비되었을 때,
+      onReady: function (event) {
+        event.target.mute(); // 음소거!
+      }
+    }
+  });
+}
+```
+
+#### 반복 애니메이션
+
+gsap 이용
+
+[반복 애니메이션에 대한 움직임 시각화 사이트](https://greensock.com/docs/v2/Easing)
+
+#### 3D 애니메이션
+
+3D backflip 애니메이션 구현을 위한 속성
+
+- perspective
+- backface-visibility
+- transform ratate 0 or -180 deg
+- position absolute
+
+#### 스크롤 위치 계산 애니메이션
+
+scrollMagic 라이브러리 사용
+
+```
+CDN
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js" integrity="sha512-8E3KZoPoZCD+1dgfqhPbejQBnQfBXe8FuwL4z/c8sTrgeDMFEnoyTlH3obB4/fV+6Sg0a0XF+L/6xS4Xx1fUEg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+```
+
+#### 다중요소 슬라이드
+
+swiper 이용
+
+#### 푸터
+
+특수기호
+
+- &copy;: &copy
+- &lt;: <
+- &gt;: >
+
+[더 많은 특수기호 보기](https://dev.w3.org/html5/html-author/charref)
+
+최상단으로 스크롤 이동  
+gsap의 scrollToPlugin 기능 필요
+
+```
+CDN
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.8.0/ScrollToPlugin.min.js" integrity="sha512-eI+25yMAnyrpomQoYCqvHBmY4dLfqKWPnD4j8y0E3Js+yqpF26xncL4t81M1zxC+ISYfRoCN52rN/n0q2UIBZQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+```
+
+### Starbucks 총정리
+
+### Netlify 지속적 배포
