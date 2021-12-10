@@ -30,7 +30,7 @@
       }
       .kind_wrap > .kind_slider > .slider {
         position: relative;
-        left: 0px;
+        /* left: 0px; */
       }
 
       .kind_wrap > .kind_slider > .slider li {
@@ -103,12 +103,21 @@
         const kindWrap = document.querySelector(".kind_wrap");
         const kindSlider = kindWrap.querySelector(".kind_slider");
         const slider = kindSlider.querySelector(".slider");
-        const slideLis = slider.querySelectorAll("li");
+        let slideLis = slider.querySelectorAll("li");
+        const firstNode = slideLis[0].cloneNode(true);
+        const lastNode = slideLis[slideLis.length - 1].cloneNode(true);
+        slider.insertBefore(lastNode, slideLis[0]);
+        slider.appendChild(firstNode);
+        slideLis = slider.querySelectorAll("li");
         const liWidth = slideLis[0].clientWidth;
         const sliderWidth = liWidth * slideLis.length;
+        const startLeft = -lastNode.clientWidth;
+        const endLeft =
+          -liWidth * (slideLis.length - 1) + firstNode.clientWidth;
         slider.style.width = sliderWidth + "px";
+        slider.style.left = startLeft + "px";
 
-        let moveDist = 0;
+        let moveDist = -lastNode.clientWidth;
         const moveBtn = kindWrap.querySelector(".arrow");
         moveBtn.addEventListener("click", (event) => {
           event.preventDefault(); // 이벤트 전파 방지(a href 이동 방지)
@@ -120,7 +129,22 @@
                 ? -liWidth * (slideLis.length - 1)
                 : moveDist - liWidth;
           }
+          slider.style.transition = "all 0.5s ease";
           slider.style.left = moveDist + "px";
+
+          if (moveDist === 0) {
+            setTimeout(() => {
+              slider.style.transition = "none";
+              moveDist = -2400;
+              slider.style.left = -2400 + "px";
+            }, 500);
+          } else if (moveDist === -3200) {
+            setTimeout(() => {
+              slider.style.transition = "none";
+              moveDist = -800;
+              slider.style.left = -800 + "px";
+            }, 500);
+          }
         });
       };
     </script>
