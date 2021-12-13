@@ -1261,3 +1261,315 @@ CDN
 ### Starbucks 총정리
 
 ### Netlify 지속적 배포
+
+## Part3. JS Essentials
+
+### Node.js
+
+NVM(Nodejs Version Manager)
+
+- $ nvm ls: npm 버전 리스트
+- $ nvm install VERSION: node 해당 버전 설치
+- $ nvm use VERSION: node 해당 버전 선택
+- $ nvm uninstall VERSION: node 해당 버전 삭제
+
+NPM(Nodejs Package Manager)
+
+- $ npm info PACKAGE_NAME: 패키지 정보 확인
+- $ npm i PACKAGE_NAME(@PACKAGE_VERSION): (해당 버전으로) 패키지 의존성 설치
+- $ npm i -D PACKAGE_NAME(@PACKAGE_VERSION): (해당 버전으로) 패키지 개발 의존성 설치
+
+실행과 빌드
+
+- $ npm i -D parcel-bundler
+- package.json의 scripts에 적용
+
+```
+"scripts": {
+  "dev": "parcel index.html",
+  "build": "parcel build index.html",
+}
+```
+
+유의적 버전(Semantic Version)
+
+v(^)Major.Minor.Patch
+
+- ^
+  - 해당 패키지 재 인스톨시, Major 버전 안에서 가장 최신 버전으로 업데이트 허용
+- Major
+  - 기존 버전과 호환되지 않는 새로운 버전
+- Minor
+  - 기존 버전과 호환되는 새로운 기능 추가 버전
+- Patch
+  - 기존 버전과 호환되는 버그 및 오타 등 수정 버전
+
+### JS 시작하기
+
+#### data type
+
+- string
+- number
+- boolean
+- undefined
+- null
+- object
+- list
+
+#### 산술연산자
+
+- 덧셈(+)
+- 뺄셈(-)
+- 곱셉(\*)
+- 나눗셈(/)
+- 모듈러(%)
+
+#### 비교연산자
+
+- a === b
+- a !== b
+- a == b
+- a != b
+- a \> b
+- a \>= b
+- a < b
+- a <= b
+- a && b
+- a || b
+- !a
+
+#### 삼항 연산자
+
+- 조건문 ? true 결과 : false 결과
+
+#### 조건문 if else
+
+```
+if(조건문A) {
+  // 조건문A true일시,
+  ...
+} else if(조건문B) {
+  // 조건문B true일시,
+  ...
+} else {
+  // 위의 모든 조건문에 부합할 시,
+  ...
+}
+```
+
+#### 조건문 switch
+
+```
+switch(변수) {
+  case A:
+    // 변수가 A와 같다면,
+    ...
+    break;
+  case B:
+    // 변수가 B와 같다면,
+    ...
+    break;
+  default:
+    // case중 맞는게 없다면,
+    ...
+    break;
+}
+```
+
+#### 반복문 for
+
+```
+// n번 반복
+for(let i=0; i<n; i++) {
+  ...
+  if(조건문) {
+    // 조건문 true일시, for문 탈출
+    break;
+  }
+  if(조건문) {
+    // 조건문 true일시, 아래 로직 수행치 않고 for문 재수행
+    continue;
+  }
+  ...
+}
+```
+
+#### 형변환
+
+```
+// num to string
+const num = 1;
+console.log(typeof (num+""));
+
+// string to num
+const str = "1"
+console.log(typeof (+str));
+
+// true에 해당하는 값
+true, {}, [], positive number, negatice number, string
+
+// false에 해당하는 값
+false, '', null, undefine, NaN, 0,
+```
+
+### JS 복습
+
+#### 화살표 함수
+
+아래의 함수들은 같은 기능
+
+```
+// 일반 함수
+const foo = function (n) {
+  ...
+}
+
+// 화살표 함수
+const foo = (n) => {
+  ...
+  return ...
+}
+
+const foo = (n) => ({
+  ...
+})
+```
+
+#### IIFE
+
+Immediately-Invoked Function Expression
+
+```
+// IIFE 형식
+(function () {
+  ...
+})()
+
+(function () {
+  ...
+}())
+```
+
+#### 호이스팅
+
+- 함수 선언부가 유효범위 최상단으로 끌어올려지는 현상
+
+- 활용: 함수를 코드 맨 아래에서 작성 (로직부를 구성할 때 방해받지 않기 위해)
+
+#### 타이머 함수
+
+- setTimeout(함수, 시간): 일정 시간 후, 함수 실행
+- clearTimeout(): 설정된 timeout 함수 종료
+- setInterver(함수, 시간): 시간 간격마다 함수 실행
+- clearInterver(): 설정된 interver 함수 종료
+
+#### 콜백(callback)
+
+- 트리거 또는 이벤트 발생시, 처리할 함수를 의미
+
+### JS 클래스
+
+#### 생성자 함수(prototype)
+
+- 클래스 생성시, 클래스 함수를 생성할 때 사용
+
+```
+function User(first, last) {
+  this.firstName = first
+  this.last = last
+}
+
+User.prototype.getFullName = function () {
+  return `${this.firstName} ${this.lastName}`
+}
+```
+
+#### this
+
+- 일반 함수는 호출 위치에 따라 this 정의
+- 화살표 함수는 자신이 선언된 함수 범위에서 this 정의
+
+```
+// ex 1
+function User(name) {
+  this.name = name;
+}
+User.prototype.normal = function () {
+  console.log(this.name)
+}
+User.prototype.arrow = () => {
+  console.log(this.name)
+}
+
+const tester = new User('tester');
+tester.normal();  // "tester"
+tester.arrow();   // undefined
+
+// ex 2
+const timer = {
+  name: "tester",
+  timeout: function() {
+    setTimeout(function () {
+      console.log(this.name)
+    }, 2000)
+  }
+}   // undefined
+
+const timer = {
+  name: "tester",
+  timeout: function() {
+    setTimeout(() => {
+      console.log(this.name)
+    }, 2000)
+  }
+}   // "tester"
+```
+
+#### ES6 Classes
+
+```
+// ES5
+function User(first, last) {
+  this.firstName = first
+  this.last = last
+}
+
+User.prototype.getFullName = function () {
+  return `${this.firstName} ${this.lastName}`
+}
+
+// ES6
+class User {
+  constructor(first, last) {
+    this.firstName = first
+    this.lastName = last
+  }
+  getFullName() {
+    return `${this.firstName} ${this.lastName}`;
+  }
+}
+```
+
+#### 상속
+
+```
+class Vehicle {
+  constructor(name, wheel) {
+    this.name = name;
+    this.wheel = wheel;
+  }
+}
+
+class Bicycle extends Vehicle {
+  constructor(name, wheel) {
+    super(name, wheel);
+  }
+}
+
+class Car extends Vehicle {
+  constructor(name, wheel, lisence) {
+    super(name, wheel);
+    this.lisence = lisence;
+  }
+}
+```
