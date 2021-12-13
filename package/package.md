@@ -1573,3 +1573,298 @@ class Car extends Vehicle {
   }
 }
 ```
+
+## JS level up
+
+### JS 데이터
+
+#### String
+
+- Properties
+
+  - length : String 길이값 반환
+
+- Methods
+  - indexOf(n) : n과 일치하는 첫 인덱스 반환, 없으면 -1 반환
+  - slice(n{, m}) : n부터 m까지 잘라내서 반환, m의 default값은 lastIndex / n이 음수라면 뒤에서부터 n개 문자열 잘라내기
+  - match(reg) : reg에 일치하는 값들을 list로 반환
+  - trim() : 앞뒤 공백 잘라내기
+
+#### Number
+
+- Methods
+  - toFixed(n) : 소수점을 n자리까지 잘라내고 toString
+  - parseInt(str) : 문자열을 int값으로 반환
+  - parseFloat(str) : 문자열을 float값으로 반환
+  - Math.abs(n) : n의 절대값 반환
+  - Math.min(n, m, ...) : 가장 작은 값 반환
+  - Math.max(n, m, ...) : 가장 큰 값 반환
+  - Math.ceil(n) : n값 올림
+  - Math.floor(n) : n값 내림
+  - Math.round(n) : n값 반올림
+  - Math.random() : 랜덤값 반환 (0~1)
+
+#### Array
+
+- properties
+  - length : arr의 길이 값 반환
+- Methods
+  - find(조건식) : 조건식을 만족하는 첫번째 요소의 값 반환, 없다면 undefined
+  - findIndex(조건식) : 조건식을 만족하는 첫번째 요소의 index 반환
+  - includes(n) : list에 n이 있다면 true, 없다면 false 반환
+  - concat(list) : concat 호출 list에 인자로 들어온 list를 이어 붙여서 반환
+  - forEach((element, index, array) => {}) : list에 대한 반복문 실행, array는 호출한 list를 나타냄
+  - map((element, index) => {}) : list에 대한 반복문 실행 후 반영 결과를 list로 반환
+  - filter(조건식) : 조건식에 맞는 인자만 list로 반환
+  - push(n) : list의 마지막에 n 추가
+  - unshife(n) : list의 첫번째에 n 추가
+  - pop() : list의 마지막에서 요소 삭제 후, 요소 값 반환
+  - shift() : list의 첫번째 요소 삭제 후, 요소 값 반환
+  - reverse() : list 뒤집기
+  - splice(n, m) : n번쨰 인덱스에서 m번 만큼 요소 삭제
+
+#### Object
+
+- Methods
+  - Object.assign(target, src) : src데이터를 target에 병합 후, 병합한 데이터를 반환
+  - Object.keys(object) : object의 key값들을 list로 반환
+
+#### 구조 분해 할당
+
+```
+const user = {
+  name: "tester",
+  age: 85,
+}
+
+const {
+  name,     // "tester"
+  age,      // 85
+  email     // undefined
+} = user;
+
+const list = ['a','b'];
+const [
+  A,    // 'a'
+  B,    // 'b'
+  C,    // undefined
+] = list;
+```
+
+#### 전개 연산자
+
+```
+// 일반적인 사용
+const list = ['a','b','c'];
+console.log(list);      // ['a','b','c']
+console.log(...list);   // 'a' 'b' 'c'
+
+// 매개변수 사용
+function (a, b, ...c) {}  // 인자가 3개 이상이라면, 2개까지는 a,b에 받고 나머지는 c라는 list에 받아짐
+```
+
+#### 불변성(Immutability)
+
+- 원시 데이터 : String, Number, Boolean, undefiend, null
+- 참조 데이터 : Object, Array, Function
+
+- 원시 데이터는 생성된 이후, 값이 새로 생성되지 않고 해당 주소에 남아있음 (불변성)
+
+#### 얕은 복사 깊은 복사
+
+- 얕은 복사 : 주소값을 복사해옴
+- 깊은 복수 : 주소값을 새로 할당하고 내부값을 복사해옴
+
+```
+const user = {
+  name: "tester",
+  age: 85,
+}
+
+// 얕은 복사
+const copyUser = user;
+
+// 깊은 복사 (1차원에 대해서만)
+const copyUser = Object.assing({}, user);
+const copyUser = {...user};
+
+// 깊은 복사 (2차원 이상, lodash 사용)
+import _ from 'lodash';
+
+const copyUser = _.cloneDeep(user);
+```
+
+### JS 데이터 실습
+
+#### lodash 사용법
+
+[lodash docs](https://lodash.com/docs/4.17.15)
+
+```
+_.uniq([2,1,2]);                            // [2,1]
+_.uniqBy([2.1, 1.2, 2.3], Math.floor);      // [2.1, 1.2]
+_.unionBy([2.1], [1.2, 2.3], Math.floor);   // [2.1, 1.2]
+
+// example
+const users = [
+  {'user': 'barney', 'active':false},
+  {'user': 'fred', 'active': flase},
+  {'user': 'pebbles', 'active': true}
+]
+
+// find 관련
+
+_.find(users, function(o) { return o.user == 'barney'});     // {'user': 'barney', 'active':false}
+_.find(users, {'user': 'fred', 'active': false});            // {'user': 'fred', 'active': flase}
+_.find(users, ['active', false]);                            // {'user': 'barney', 'active':false}
+_.find(users, 'active');                                     // {'user': 'pebbles', 'active': true}
+
+_.findIndex(users, function(o) { return o.user == 'barney'});     // 0
+_.findIndex(users, {'user': 'fred', 'active': false});            // 1
+_.findIndex(users, ['active', false]);                            // 0
+_.findIndex(users, 'active');                                     // 2
+
+// remove 관련
+_.remove(users, { user: 'barney' });
+```
+
+#### JSON (JavaScript Object Notation)
+
+키-값 쌍으로 이루어진 비동기 브라우저/서버 통신(AJAX)를 위해 사용되는 데이터 포맷
+
+```
+// json to string
+const str = JSON.stringif(data);
+
+// string to json
+const obj = JSON.parse(str);
+```
+
+#### Storage
+
+브라우저에 데이터를 저장 할 수 있는 공간
+
+- Local Storage
+
+  - 도메인 주소에 데이터 종속
+  - 데이터 만료 X
+  -
+
+- Session Storage
+  - 페이지 세션 종료(페이지 닫기) 시, 데이터 만료
+
+```
+// localStorage 사용 예)
+
+// save
+// value는 JSON.stringify()로 JSON화 된 값이어야 함
+localStorage.setItem('key', value);
+
+// read
+const value = localStorage.getItem('key');
+
+// remove
+localStorage.removeItem('key')
+```
+
+#### Lowdb
+
+Lodash 기반, nodejs json database
+
+#### OMDb API
+
+The Open Movie Database API
+
+Query String?  
+어떤 페이지에 접근할 때, http요청의 옵션에 대한 속성 및 값에 대한 명시  
+주소?<u>속성=값&속성=값&속성=값</u> (query string)
+
+axios?  
+Promise 기반의 Http 요청을 처리해주는 라이브러리 (브라우저 및 nodejs용)
+
+### 정규표현식
+
+[정규표현식 테스트 사이트](https://regexr.com)
+
+역할
+
+- 문자 검색
+- 문자 대체
+- 문자 추출
+
+#### 정규식 생성
+
+```
+// 생성자 방식
+new RegExp(표현식, 옵션)
+
+// 리터럴 방식
+/표현/옵션
+```
+
+#### 정규식을 사용하는 메소드
+
+```
+// 일치하는 하나의 정보 반환
+reg.exec(string)
+
+// 일치 여부(bool) 반환
+reg.test(string)
+
+// 일치하는 문자열 배열 반환
+String.match(reg)
+
+// 일치하는 문자열의 인덱스 반환
+String.search(reg)
+
+// 일치하는 문자열을 대체 후 반환
+String.replace(reg)
+
+// 일치하는 문자열을 분할하여 배열로 반환
+String.split(reg)
+
+// 생성자 함수 방식의 정규식을 리터럴 방식의 문자열로 반환
+생성자_정규식.toString()
+```
+
+#### 플래그(옵션)
+
+- g : 일치하는 모든 문자 반환
+- i : 대소문자를 구분하지 않고 일치하는 문자 반환
+- m : 여러 줄 일치(\n을 구분하여 각 줄단위 검색)
+
+#### 패턴
+
+시작/끝 관련
+
+- ^n : 줄 시작에 n이 있다면 일치
+- n$ : 줄 끝에 n이 있다면 일치
+- (?=) : 앞쪽 일치
+- (?<=) : 뒤쪽 일치
+
+그 외
+
+- \. : 임의의 한 문자와 일치 (경로에서의 '\*' 역할)
+- a|b : a or b 와 일치
+- n? : n이 없거나 n과 일치
+
+연속 문자 관련
+
+- a{n} : a가 n개 연속 일치
+- a{n,} : a가 n개 이상 연속 일치
+- a{n, m} : a가 n개 이상 m개 이하 연속 일치
+
+문자 또는 숫자 관련
+
+- [abc] : a or b or c
+- [a-z] : a ~ z 사이 문자
+- [A-Z] : A ~ Z 사이 문자
+- [0-9] : 0 ~ 9 사이 숫자
+- [가-힣] : 가 ~ 힣 사이 문자
+
+백슬래시 관련
+
+- \w: 63개 문자 (대소영문 52ro + 숫자 10개 + \_)
+- \b: 63개 문자에 일치하지 않는 문자 경계
+- \d: 숫자(Digit)
+- \s: 공백(Space, tab 등)
