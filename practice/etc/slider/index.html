@@ -5,148 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Slider</title>
     <link rel="stylesheet" href="../reset.css" />
-    <style>
-      li {
-        list-style: none;
-      }
+    <link rel="stylesheet" href="./slider.css" />
 
-      .no-drag {
-        -ms-user-select: none;
-        -moz-user-select: -moz-none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        user-select: none;
-      }
-
-      .kind_wrap {
-        border: 2px solid black;
-        width: 100%;
-        max-width: 800px;
-        margin: 0 auto;
-        position: relative;
-      }
-      .kind_wrap > .kind_slider {
-        overflow: hidden;
-      }
-      .kind_wrap > .kind_slider > .slider {
-        position: relative;
-        /* left: 0px; */
-      }
-
-      .kind_wrap > .kind_slider > .slider li {
-        float: left;
-      }
-
-      .kind_wrap > .kind_slider > .slider li img {
-        vertical-align: top;
-      }
-
-      .kind_wrap > .arrow {
-      }
-
-      .kind_wrap .arrow > .prev,
-      .kind_wrap .arrow > .next {
-        position: absolute;
-        width: 40px;
-        height: 40px;
-        border: 2px solid #333;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 20px;
-        font-weight: 700;
-        cursor: pointer;
-        transition: 0.1s;
-      }
-
-      .kind_wrap .arrow > .prev:active,
-      .kind_wrap .arrow > .next:active {
-        color: #fff;
-        background-color: #333;
-      }
-
-      .kind_wrap .arrow > .prev {
-        left: -70px;
-        top: 80px;
-      }
-
-      .kind_wrap .arrow > .next {
-        right: -70px;
-        top: 80px;
-      }
-    </style>
+    <script src="./slider.js"></script>
   </head>
   <body>
-    <div class="kind_wrap">
-      <div class="kind_slider">
-        <ul class="slider">
-          <li>
-            <img src="https://via.placeholder.com/800x200.png?text=1" alt="" />
-          </li>
-          <li>
-            <img src="https://via.placeholder.com/800x200.png?text=2" alt="" />
-          </li>
-          <li>
-            <img src="https://via.placeholder.com/800x200.png?text=3" alt="" />
-          </li>
-        </ul>
-      </div>
-
-      <div class="arrow">
-        <a href="" class="prev no-drag">&larr;</a>
-        <a href="" class="next no-drag">&rarr;</a>
-      </div>
+    <div class="slider2">
+      <a href="#">
+        <img src="https://via.placeholder.com/800x200.png?text=1" alt="" />
+      </a>
+      <a href="#">
+        <img src="https://via.placeholder.com/800x200.png?text=2" alt="" />
+      </a>
+      <a href="#">
+        <img src="https://via.placeholder.com/800x200.png?text=3" alt="" />
+      </a>
     </div>
     <script>
-      window.onload = function () {
-        const kindWrap = document.querySelector(".kind_wrap");
-        const kindSlider = kindWrap.querySelector(".kind_slider");
-        const slider = kindSlider.querySelector(".slider");
-        let slideLis = slider.querySelectorAll("li");
-        const firstNode = slideLis[0].cloneNode(true);
-        const lastNode = slideLis[slideLis.length - 1].cloneNode(true);
-        slider.insertBefore(lastNode, slideLis[0]);
-        slider.appendChild(firstNode);
-        slideLis = slider.querySelectorAll("li");
-        const liWidth = slideLis[0].clientWidth;
-        const sliderWidth = liWidth * slideLis.length;
-        const startLeft = -lastNode.clientWidth;
-        const endLeft =
-          -liWidth * (slideLis.length - 1) + firstNode.clientWidth;
-        slider.style.width = sliderWidth + "px";
-        slider.style.left = startLeft + "px";
-
-        let moveDist = -lastNode.clientWidth;
-        const moveBtn = kindWrap.querySelector(".arrow");
-        moveBtn.addEventListener("click", (event) => {
-          event.preventDefault(); // 이벤트 전파 방지(a href 이동 방지)
-          if (event.target.className === "prev no-drag") {
-            moveDist = moveDist + liWidth > 0 ? 0 : moveDist + liWidth;
-          } else if (event.target.className === "next no-drag") {
-            moveDist =
-              moveDist - liWidth < -liWidth * (slideLis.length - 1)
-                ? -liWidth * (slideLis.length - 1)
-                : moveDist - liWidth;
-          }
-          slider.style.transition = "all 0.5s ease";
-          slider.style.left = moveDist + "px";
-
-          if (moveDist === 0) {
-            setTimeout(() => {
-              slider.style.transition = "none";
-              moveDist = -2400;
-              slider.style.left = -2400 + "px";
-            }, 500);
-          } else if (moveDist === -3200) {
-            setTimeout(() => {
-              slider.style.transition = "none";
-              moveDist = -800;
-              slider.style.left = -800 + "px";
-            }, 500);
-          }
-        });
-      };
+      Slider(".slider2", {
+        speed: 500,
+      });
     </script>
   </body>
 </html>
