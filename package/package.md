@@ -1439,6 +1439,10 @@ const foo = (n) => ({
 
 Immediately-Invoked Function Expression
 
+- 익명함수이므로, 재사용이 불가능하여 안전하다
+- 호이스팅이 일어나지 않으므로 안전하다
+-
+
 ```
 // IIFE 형식
 (function () {
@@ -1868,3 +1872,310 @@ String.split(reg)
 - \b: 63개 문자에 일치하지 않는 문자 경계
 - \d: 숫자(Digit)
 - \s: 공백(Space, tab 등)
+
+## TS Essentials
+
+### TypeScript
+
+#### TS 설치 및 사용
+
+프로젝트 내 설치
+
+- $ npm i typescript
+
+typescript 컴파일 실행 명령
+
+- $ node_modules/.bin/tsc
+- $ npx tsc
+  - ./ 폴더 내의 n.ts 파일을 n.js로 트랜스파일링
+
+typescript initialize
+
+- $ npx tsc --init
+
+#### VS code
+
+- VS Code는 TypeScript를 내장하고 있음
+- 내장된 TS 버전은 VS code 버전에 따라 변화할 수 있음 (수동 설정도 가능)
+
+#### Type Annotation
+
+Type Annotation이란, 타 언어에서의 식별자 선언에 해당
+
+### Basic Types
+
+#### Primitive Type
+
+- 오브젝트 및 레퍼런스 형태가 아닌 실제 값을 저장하는 타입
+- primitive type은 소문자로 표현한다.
+- 'new' 를 사용하여 레퍼 객체로 만들 수도 있다.
+
+```
+new Boolean(false);   // object type
+new String('world');  // object type
+new Number(42);       // object type
+```
+
+#### number
+
+```
+let dec: number = 6;
+let hex: number = 0xf00d;
+let bin: number = 0b1010;
+let oct: number = 0o744;
+let notANumber: number = NaN;
+let underScoreNum: number = 1_000_000;
+```
+
+#### symbol
+
+- EC5의 Symbol
+- Symbol() 로 symbol type 생성 가능
+
+```
+new Symbol('foo') // X
+Symbol('foo')     // O
+```
+
+- ts 환경에 따라 사용 불가능
+- primitive 값을 담아서 사용
+- 고유하고 수정 불가능한 값으로 만듦
+- 주로 접근 제어시 쓰였음
+
+```
+예시 )
+const sym = Symbol();
+const obj = {
+  [sym]: "value",   // [sym] -> 위의 sym을 key값으로 사용한다는 명시
+};
+console.log(obj.[sym]);     // "value"
+```
+
+#### object
+
+- non-primitive type 의미
+
+```
+// { name: string, age: number } type (object literal type)
+const person1 = { name: 'Mark', age: 39 };
+
+// object type
+const person2 = Object.create({ name: 'Mark', age: 39 })
+```
+
+#### Array
+
+```
+// 같은 방식의 선언
+const list: number[] = [1,2,3];
+const list: Array<number> = [1,2,3];
+```
+
+#### Tuple
+
+```
+const tuple: [string, number] = ["str", 0];
+```
+
+#### unknown
+
+- any와 비슷
+- 런타임시 컴파일러가 타입을 자동으로 추론
+- 타입 확정없이는 다른 곳에 할당 및 사용 불가
+- 변수 또는 함수의 결과로 얻는 값이 어떤 형태일지 정말 모르겠을 때, 사용
+
+```
+declare const unknown: unknown;
+const number: number = unknown;    // inteli sence error!!
+
+// unknown을 활용한 type guard
+if(maybe === true) {
+  // maybe는 해당 if 안에서 true로 변경됨
+  const bool: boolean = maybe;
+  const str: string = maybe;      // inteli sence error!!
+}
+
+if(typeof maybe === 'string') {
+  // maybe는 해당 if 안에서 string으로 변경됨
+  const str: string = maybe;
+}
+```
+
+#### never
+
+- 함수 return을 하지 않는 상황 (무한 루프, 또는 throw)에 사용
+
+```
+function error(message: string): never {
+  throw new Error(message);
+}
+
+function inifiniteLoop(): never {
+  while(true) {
+    ...
+  }
+}
+```
+
+- never type은 모든 타입에 할당 가능
+- never type에는 모든 타입이 할당 불가(any조차)
+
+#### void
+
+- return값이 없음을 명시적으로 표현할 때 사용
+
+### Type System
+
+#### 작성자 / 사용자 관점 코드 리뷰
+
+#### Stuctural Type System
+
+- typeScript가 채택하고 있는 Type System
+- 구조가 같으면 같은 타입이다.
+
+```
+interface IPerson {
+  name: string;
+  age: number;
+  speak(): string;
+}
+
+type PersonType {
+  name: string;
+  age: number;
+  speak(): string;
+}
+
+let personInterface: IPerson = {} as any;
+let personType: PersonType = {} as any;
+
+personInterface = personType;   // 가능
+personType = personInterface;   // 기능
+```
+
+- Nominal Type System (<-> Stuctural Type System)
+
+  - 구조가 같아도 이름이 다르면, 다른 타입이다.
+
+- TS는 Duck typing이 아니다.
+
+#### 타입 호환성 (Type Compatibility)
+
+- 서브타입은 상위타입의 변수 또는 매개변수에 할당 될 수 있음을 의미
+- 서브 타입과 슈퍼타입
+  - 서브타입은 슈퍼타임에 포함될 수 있는 타입을 의미
+
+```
+const sub: 1 = 1;           // sub
+const sup: number = sub;    // sup
+```
+
+#### 타입 별칭 (Type Alias)
+
+- Primitive, Union Type, Tuple, Function 등 을 다른 이름으로 사용하고 싶을 때, 사용
+
+- interface : type으로써의 목적이나 존재가치가 명확할 때, 사용
+- type : 단순 별칭 등으로 사용할 때, 사용
+
+### TS Complier
+
+[TS Deep Dive](https://radlohead.gitbook.io/typescript-deep-dive/)
+
+#### Compilation Context
+
+- 컴파일에 대한 ts 설정에 대해 적혀있는 맥락
+- target 파일, 변환시 옵션, 파일 grouping등이 적혀있음
+- tsconfig.json에 명시
+
+#### tsconfig schema
+
+[tsconfig schema](http://json.schemastore.org/tsconfig)
+
+- 자주 사용되는 최상위 property
+  - compileOnSave
+  - extends
+  - complieOPtions
+  - files
+  - include
+  - exclude
+  - references
+
+#### complieOnSave
+
+- save시, auto 컴파일 설정(default: false)
+
+```
+// tsconfig.json
+{
+  "compileOnSave": true,
+  ...
+}
+```
+
+#### extends
+
+- 컴파일 옵션 상속을 받아올 부모의 Path
+
+```
+// base.json
+{
+  complieOptions: {
+    strict: true
+  }
+}
+
+// tsconfig.json
+{
+  "extends": "./base.json",
+  ...
+}
+```
+
+#### files, include, exclude
+
+files
+
+- files 옵션에 선언된 파일들만 모아서 컴파일
+- files 옵션은 exclude 옵션보다 강한 권한을 지닌다
+
+include
+
+- 컴파일시, 포함할 파일들 선언
+- Glob 패턴 사용
+
+exclude
+
+- 컴파일시, 제외할 파일들 선언
+- Glob 패턴 사용
+- 설정하지 않는다면, node_modules, bower_components, jspm_packages, <\outDir>을 default로 제외
+- outDir에 설정된 파일은 항상 제외
+
+#### complieOptions
+
+- typeRoots
+
+  - @types
+
+- types
+
+### Interfaces
+
+인터페이스란?
+
+#### optional property
+
+#### function in interface
+
+#### class implements interface
+
+#### interface extends interface
+
+#### function interface
+
+#### Readonly interface Properties
+
+#### type alias VS interface
+
+### Classes
+
+####
