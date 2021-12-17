@@ -1,5 +1,5 @@
 body {
-  font-family: "Nanum Gothic", sans-serif;
+  font-family: "Noto Sans CJK KR", "Nanum Gothic", sans-serif;
   font-size: 16px;
   font-weight: 400;
   line-height: 1.4;
@@ -7,6 +7,7 @@ body {
 }
 a {
   text-decoration: none;
+  /* NON DRAG */
   -ms-user-select: none;
   -moz-user-select: -moz-none;
   -khtml-user-select: none;
@@ -14,6 +15,7 @@ a {
   user-select: none;
 }
 span {
+  /* NON DRAG */
   -ms-user-select: none;
   -moz-user-select: -moz-none;
   -khtml-user-select: none;
@@ -21,6 +23,7 @@ span {
   user-select: none;
 }
 h2 {
+  /* NON DRAG */
   -ms-user-select: none;
   -moz-user-select: -moz-none;
   -khtml-user-select: none;
@@ -43,7 +46,7 @@ li {
   width: 100%px;
   height: 44px;
   margin-bottom: 12px;
-  background-color: blueviolet;
+  /* background-color: blueviolet; */
 }
 
 .wrap {
@@ -51,7 +54,7 @@ li {
   height: 812px;
   max-width: 375px;
   max-height: 812px;
-  background-color: orange;
+  background-color: #eeece5;
   position: relative;
 }
 
@@ -96,7 +99,6 @@ li {
 .account .account__title {
   width: 327px;
   height: 43px;
-  background-color: wheat;
   padding: 0 21px 0 27px;
   display: flex;
   justify-content: space-between;
@@ -114,7 +116,6 @@ li {
 .account .account__title .subtitle {
   font-size: 18px;
   font-weight: bold;
-  font-family: Arial, Helvetica, sans-serif;
   line-height: 0;
 }
 
@@ -144,4 +145,169 @@ li {
 
 .account .account__title .profile img {
   width: 100%;
+}
+
+.account .account__status {
+  width: 100%;
+  height: 254px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.account .account__status .status__total {
+  width: 279px;
+  height: 155px;
+  background: #ffffff;
+  box-shadow: 0px 0px 16px rgba(226, 191, 66, 0.19);
+  border-radius: 12px;
+  margin-top: 33px;
+}
+
+.account .account__status .ad {
+  margin-top: 24px;
+  font-size: 14px;
+}
+
+.account .account__status .ad > a {
+  color: black;
+}
+
+.account .account__status .ad > a + a {
+  margin-left: 4px;
+  text-decoration: underline;
+}
+
+.account__status {
+}
+
+.account__status .status__total {
+  font-style: normal;
+  font-weight: 500;
+
+  text-align: center;
+  position: relative;
+}
+
+.account__status .status__total .status__account-num {
+  font-size: 14px;
+  line-height: 21px;
+  /* identical to box height */
+
+  letter-spacing: -0.24px;
+  margin-top: 14px;
+  position: relative;
+}
+
+.account__status .status__total .status__account-num strong {
+  color: #858585;
+}
+
+.account__status .status__total .status__account-num span {
+  color: #000000;
+  position: absolute;
+  right: 17px;
+}
+
+.account__status .status__total .status__account-num span:hover {
+  cursor: pointer;
+}
+
+.account__status .status__total .status__account-balance {
+  margin-top: 16px;
+  font-weight: 600;
+}
+
+.account__status .status__total .status__account-balance strong {
+  font-size: 24px;
+  line-height: 36px;
+
+  letter-spacing: 2px;
+}
+
+.account__status .status__total .status__graph {
+  width: 202px;
+  height: 17px;
+  position: relative;
+  margin-top: 16px;
+  margin-left: 32px;
+  margin-bottom: 8px;
+}
+
+.account__status .status__total .status__graph .total {
+  width: 100%;
+  height: 6px;
+
+  background: #c4c4c4;
+  border-radius: 3px;
+
+  position: absolute;
+  top: 7px;
+  z-index: 1;
+}
+
+.account__status .status__total .status__graph .now {
+  width: 60%;
+  height: 6px;
+
+  background: #ffdb4c;
+  border-radius: 3px 0px 0px 3px;
+
+  position: absolute;
+  top: 7px;
+  z-index: 2;
+}
+
+.account__status .status__total .status__graph .set {
+  width: 8px;
+  height: 17px;
+
+  background: #fff;
+
+  position: absolute;
+  z-index: 3;
+  right: 53px; /* set controller 움직일때 사용*/
+
+  display: flex;
+  justify-content: center;
+}
+
+.account__status .status__total .status__graph .set .controller {
+  width: 4px;
+  height: 17px;
+
+  background: #ff5f00;
+  border-radius: 2px;
+}
+
+.account__status .status__total .chart {
+  width: 24px;
+  height: 24px;
+
+  position: absolute;
+  top: 98px;
+  right: 14px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.account__status .status__total .chart .img {
+  width: 14px;
+  height: 14px;
+
+  background-image: url("./images/chart.png");
+  background-size: cover;
+}
+
+.account__status .status__total .chart:hover {
+  cursor: pointer;
+}
+
+.account__status .status__total .status__summary {
+  font-size: 14px;
+  line-height: 21px;
+
+  color: #858585;
 }
