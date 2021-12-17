@@ -1,8 +1,7 @@
 body {
-  font-family: "Noto Sans CJK KR", "Nanum Gothic", sans-serif;
-  font-size: 16px;
-  font-weight: 400;
-  line-height: 1.4;
+  font-family: "Noto Sans CJK KR", "Nanum Gothic", "sans-serif";
+  font-size: 14px;
+  line-height: 21px;
   color: #333;
 }
 a {
@@ -84,6 +83,10 @@ li {
   background-image: url("./images/more.png");
 }
 
+.container {
+  overflow: hidden;
+}
+
 .hide {
   font-size: 0;
 }
@@ -139,7 +142,6 @@ li {
 .account {
   width: 100%;
   height: 680px;
-  background-color: palevioletred;
 }
 
 .account .account__title {
@@ -344,4 +346,155 @@ li {
   line-height: 21px;
 
   color: #858585;
+}
+
+/* HISTORY */
+.account__history {
+  width: 100%;
+  height: 383px;
+
+  background-color: #f5f5f5;
+  box-shadow: 0px -5px 14px rgba(189, 144, 28, 0.08);
+  border-radius: 30px 30px 0px 0px;
+}
+
+.account__history .history__more {
+  width: 100%;
+  height: 17px;
+
+  display: flex;
+  justify-content: center;
+}
+
+.account__history .history__more .controll-space {
+  width: 106px;
+  height: 17px;
+
+  position: relative;
+  top: -3px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.account__history .history__more .controll-space .controll-bar {
+  width: 48px;
+  height: 2.15px;
+
+  background: #c4c4c4;
+  border-radius: 4px;
+}
+
+.account__history .history__saving {
+  width: 308px;
+  height: 49px;
+
+  margin: 6px 37px 0 30px;
+
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.account__history .history__saving .container {
+  display: flex;
+}
+
+.account__history .history__saving .container .saving-box {
+  width: 162px;
+  height: 47px;
+  min-width: 162px;
+
+  font-size: 12px;
+  line-height: 18px;
+
+  background: #dadada;
+  border-radius: 6px;
+
+  margin-right: 16px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  color: #fff;
+
+  position: relative;
+}
+
+.account__history .history__saving .container .saving-box strong {
+  margin-left: 13px;
+  z-index: 2;
+
+  font-family: "Noto Sans CJK KR";
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.account__history .history__saving .container .saving-box span {
+  margin-left: 13px;
+  z-index: 2;
+
+  font-family: "Noto Sans CJK KR";
+  font-size: 12px;
+  line-height: 18px;
+}
+
+.account__history .history__saving .container .saving-box .achieve {
+  width: 30%; /* 성취에 따른 가변값 */
+  height: 100%;
+
+  background-color: chartreuse; /* 사용자 설정 또는 랜덤 가변 값 */
+  border-radius: 6px 0 0 6px; /* if 100%, npx; / else npx 0 0 npx */
+
+  position: absolute;
+}
+
+.account__history .history__recent {
+  width: 100%;
+  height: 294px;
+  margin-top: 17px;
+
+  background-color: chartreuse;
+  position: relative;
+}
+
+.account__history .history__recent .container {
+  width: 302px;
+  height: 100%;
+
+  background-color: chocolate;
+
+  position: absolute;
+  top: -1px;
+  left: 36px;
+
+  overflow-y: scroll;
+}
+
+.account__history .history__recent .container .day {
+  margin-bottom: 38px;
+}
+
+.account__history .history__recent .container .day:last-child {
+  margin-bottom: 0;
+}
+
+.account__history .history__recent .container .day .day-summary {
+  width: 100%;
+  height: 21px;
+
+  display: flex;
+  justify-content: space-between;
+}
+
+.account__history .history__recent .container .day .day-summary strong {
+  font-family: "Noto Sans CJK KR";
+  font-weight: bold;
+}
+
+.account__history .history__recent .container .day .day-summary span {
+  font-family: "Noto Sans CJK KR";
+  color: #b4b4b4;
 }
