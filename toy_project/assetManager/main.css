@@ -38,6 +38,52 @@ li {
   list-style: none;
 }
 
+/* ICONS */
+.icon {
+  background-size: cover;
+}
+
+.icon-cover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon.icon--chart {
+  width: 14px;
+  height: 14px;
+
+  background-image: url("./images/chart.png");
+}
+
+.icon.icon--home {
+  width: 23.33px;
+  height: 19.83px;
+
+  background-image: url("./images/home.png");
+}
+
+.icon.icon--transfer {
+  width: 32px;
+  height: 22px;
+
+  background-image: url("./images/transfer.png");
+}
+
+.icon.icon--msg {
+  width: 24px;
+  height: 21.96px;
+
+  background-image: url("./images/msg.png");
+}
+
+.icon.icon--more {
+  width: 26.27px;
+  height: 6px;
+
+  background-image: url("./images/more.png");
+}
+
 .hide {
   font-size: 0;
 }
@@ -65,19 +111,19 @@ li {
   bottom: 0;
   position: absolute;
   background: linear-gradient(163.63deg, #00bdb2 11.35%, #c4e7b8 139.96%);
+  display: flex;
 }
 
 .tab-bar ul {
+  width: 100%;
   display: flex;
   justify-content: space-around;
-  /* align-items: center; */ /*안먹음 padding으로 대체*/
-  padding-top: 24px;
+  align-items: center;
 }
 
 .tab-bar > ul > li {
-  width: 28px;
-  height: 28px;
-  text-align: center;
+  width: 30px;
+  height: 30px;
 }
 
 .tab-bar > ul > li > a {
@@ -287,18 +333,6 @@ li {
   position: absolute;
   top: 98px;
   right: 14px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.account__status .status__total .chart .img {
-  width: 14px;
-  height: 14px;
-
-  background-image: url("./images/chart.png");
-  background-size: cover;
 }
 
 .account__status .status__total .chart:hover {
