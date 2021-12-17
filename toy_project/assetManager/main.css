@@ -1,11 +1,22 @@
-body {
+* {
   font-family: "Noto Sans CJK KR", "Nanum Gothic", "sans-serif";
   font-size: 14px;
   line-height: 21px;
+}
+
+body {
   color: #333;
 }
 a {
   text-decoration: none;
+  /* NON DRAG */
+  -ms-user-select: none;
+  -moz-user-select: -moz-none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+strong {
   /* NON DRAG */
   -ms-user-select: none;
   -moz-user-select: -moz-none;
@@ -100,21 +111,26 @@ li {
 
 .wrap {
   width: 375px;
-  height: 812px;
+  height: 100vh;
+
   max-width: 375px;
-  max-height: 812px;
+  min-height: 812px;
   background-color: #eeece5;
   position: relative;
+
+  overflow: hidden;
 }
 
 /* NAV */
 .tab-bar {
-  width: 100%;
+  width: 375px;
   height: 76px;
   bottom: 0;
-  position: absolute;
+  max-width: 375px;
+  position: fixed;
   background: linear-gradient(163.63deg, #00bdb2 11.35%, #c4e7b8 139.96%);
   display: flex;
+  z-index: 99;
 }
 
 .tab-bar ul {
@@ -141,7 +157,6 @@ li {
 /* ACCOUNT */
 .account {
   width: 100%;
-  height: 680px;
 }
 
 .account .account__title {
@@ -213,8 +228,8 @@ li {
 }
 
 .account .account__status .ad {
-  margin-top: 24px;
   font-size: 14px;
+  margin-top: 24px;
 }
 
 .account .account__status .ad > a {
@@ -238,10 +253,6 @@ li {
 }
 
 .account__status .status__total .status__account-num {
-  font-size: 14px;
-  line-height: 21px;
-  /* identical to box height */
-
   letter-spacing: -0.24px;
   margin-top: 14px;
   position: relative;
@@ -269,8 +280,6 @@ li {
 .account__status .status__total .status__account-balance strong {
   font-size: 24px;
   line-height: 36px;
-
-  letter-spacing: 2px;
 }
 
 .account__status .status__total .status__graph {
@@ -307,7 +316,7 @@ li {
 }
 
 .account__status .status__total .status__graph .set {
-  width: 8px;
+  width: 9px;
   height: 17px;
 
   background: #fff;
@@ -342,16 +351,14 @@ li {
 }
 
 .account__status .status__total .status__summary {
-  font-size: 14px;
-  line-height: 21px;
-
   color: #858585;
 }
 
 /* HISTORY */
 .account__history {
   width: 100%;
-  height: 383px;
+  /* height: auto; */
+  min-height: 55vh;
 
   background-color: #f5f5f5;
   box-shadow: 0px -5px 14px rgba(189, 144, 28, 0.08);
@@ -427,7 +434,6 @@ li {
   margin-left: 13px;
   z-index: 2;
 
-  font-family: "Noto Sans CJK KR";
   font-size: 12px;
   line-height: 18px;
 }
@@ -436,7 +442,6 @@ li {
   margin-left: 13px;
   z-index: 2;
 
-  font-family: "Noto Sans CJK KR";
   font-size: 12px;
   line-height: 18px;
 }
@@ -445,7 +450,7 @@ li {
   width: 30%; /* 성취에 따른 가변값 */
   height: 100%;
 
-  background-color: chartreuse; /* 사용자 설정 또는 랜덤 가변 값 */
+  background-color: cornflowerblue; /* 사용자 설정 또는 랜덤 가변 값 */
   border-radius: 6px 0 0 6px; /* if 100%, npx; / else npx 0 0 npx */
 
   position: absolute;
@@ -453,10 +458,11 @@ li {
 
 .account__history .history__recent {
   width: 100%;
-  height: 294px;
+  height: auto;
+  min-height: 45vh;
   margin-top: 17px;
 
-  background-color: chartreuse;
+  /* background-color: chartreuse; */
   position: relative;
 }
 
@@ -464,10 +470,7 @@ li {
   width: 302px;
   height: 100%;
 
-  background-color: chocolate;
-
   position: absolute;
-  top: -1px;
   left: 36px;
 
   overflow-y: scroll;
@@ -490,11 +493,23 @@ li {
 }
 
 .account__history .history__recent .container .day .day-summary strong {
-  font-family: "Noto Sans CJK KR";
   font-weight: bold;
 }
 
 .account__history .history__recent .container .day .day-summary span {
-  font-family: "Noto Sans CJK KR";
   color: #b4b4b4;
+}
+
+.account__history .history__recent .container .day ul > li {
+  margin-top: 8px;
+
+  width: 100%;
+  height: 34px;
+
+  border-bottom: 1px solid #dadada;
+  display: flex;
+  justify-content: space-between;
+
+  font-size: 18px;
+  line-height: 27px;
 }
