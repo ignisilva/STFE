@@ -2210,19 +2210,210 @@ exclude
 
 인터페이스란?
 
+- OOP에서 사용되는 추상화 개념 중 하나로, Object의 공통 분모를 추상화 시켜놓은 일종의 Type (추상 클래스)
+- 빌드 이후에는 js파일 내에서 사라진다.
+
 #### optional property
+
+- 상황에 따라 있을 수도, 없을 수도 있는 속성
+
+```
+interface Person {
+  name: string:
+  age?: number;              // optional property
+  [index: string]: number;   // optional property
+}
+
+
+const person: Person = {
+  name: "Mark",
+  age: 10,        // 있어도 없어도 됨
+  bullet: 3,      // 있어도 없어도 됨, bullet 이외에도 다른 string 값 가능
+}
+```
 
 #### function in interface
 
+- 인터페이스 내의 함수 선언
+
+```
+interface Person {
+  name: string;
+  hello(): void;
+}
+
+const person: Person = {
+  name: "Mark",
+  hello: function(): void {
+    console.log(`hello ${this.name}`);
+  }
+}
+
+const person: Person = {
+  name: "Mark",
+  hello(): void {
+    console.log(`hello ${this.name}`);
+  }
+}
+```
+
 #### class implements interface
+
+- 인터페이스로 클래스 구현
+
+```
+interface IPerson {
+  name: string;
+  age?: number;
+  hello(): void;
+}
+
+class Person implements IPerson {
+  name: string;
+  age?: number | undefined;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+
+  hello(): void {
+    console.log("hello");
+  }
+}
+
+const person: IPerson = new Person("Mark");
+person.hello();
+```
 
 #### interface extends interface
 
+- 인터페이스 상속
+
+```
+interface IPerson {
+  name: string;
+  age?: number;
+}
+
+interface IKorean extends IPerson {
+  city: string;
+}
+
+const korean: IKorean = {
+  name: "한국인",
+  city: "서울",
+}
+```
+
 #### function interface
+
+- 함수 인터페이스
+
+```
+interface HelloPerson {
+  (name: string, age?: number): void;
+}
+
+const helloPerson: HelloPerson = function(name: string)
+```
 
 #### Readonly interface Properties
 
+- readonly 속성이 선언된 변수는 const 속성을 가지게 된다. (초기화 후, 변경 불가)
+
+```
+interface Person {
+  name: string;
+  readonly gender: string;
+}
+
+const person: Person = {
+  name: "Mark",
+  gender: "male"
+}
+
+person.gender = "female"    // error
+```
+
 #### type alias VS interface
+
+- function
+
+```
+// type alias
+type EatType = (food: string) => void;
+
+// ineterface
+interface IEat {
+  (food: string): void;
+}
+```
+
+- array
+
+```
+// type alias
+type PersonList = string[];
+
+// interface
+interface IPersonList {
+  [index: number]: string;
+}
+```
+
+- intersection
+
+```
+interface ErrorHandling {
+  success: boolean;
+  error?: { message: string };
+}
+interface ArtistsData {
+  artists: { name: string }[];
+}
+
+// type alias
+type ArtistsResponseType = ArtistsData & ErrorHandling;
+
+// interface
+interface IArtistsResponse extends ArtistsData, ErrorHandling {}
+
+let art: ArtistsResponseType;
+let iart: IArtistsResponse;
+```
+
+- union
+
+```
+interface Bird {
+  fly(): void;
+  layEggs(): void;
+}
+interface Fish {
+  swin(): void;
+  layEggs: void;
+}
+
+type PetType = Bird | Fish;
+
+interface IPet extends PetType {} // error
+class Pet implements PetType {}   // error
+```
+
+- declaration mergin
+
+```
+inferface IMerging {
+  a: string;
+}
+interface IMerging {
+  b: string;
+}
+
+let mergingInterface: IMerging;   // mergingInterface는 a, b 속성을 가지고 있다.
+
+// type은 Merging이 불가능 하다
+```
 
 ### Classes
 
