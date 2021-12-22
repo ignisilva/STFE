@@ -2152,11 +2152,59 @@ exclude
 
 #### complieOptions
 
-- typeRoots
+- typeRoots / types
 
-  - @types
+  - 모듈의 type definition을 어디서 불러올지에 대한 옵션 설정
+  - @types/PACKAGE_NAME 설치시, node_modules/@types/PACKAGE_NAME/index.d.ts 파일을 type definition으로 사용한다. (default)
+  - typeRoots와 types는 같이 사용하지 않는다.
+  - typeRoots
+    - 배열 안에 있는 경로들 아래에서만 definition을 가져옴
+  - types
+    - 배열안의 모듈 또는 ./node_modules/@types/ 안의 모듈 이름에서 찾아옴
 
-- types
+- target
+
+  - ts로 빌드된 결과물이 어떤 런타임 환경에서 실행 가능한지에 대한 설정
+  - default는 es3
+
+- lib
+
+  - 최종적으로 실행하려는 환경의 기본 type definition 설정
+  - lib 지정하지 않았을 시,
+    - lib = target === 'es3' ? lib.d.ts
+    - lib = target === 'es5' ? ["DOM", "es5", "scripthost"]
+    - lib = target === 'es6' ? ["DOM", "es6", "dom.iterable", "scripthost"]
+  - lib 지정시 해당 type definition 사용
+    - 단, lib = [] 이라면, 'error: no definition found ...'
+
+- outDir
+
+  - 빌드된 결과물을 내보낼 디렉토리 설정
+
+- outFile
+
+  - 모듈이 system, AMD 등과 같은 형태로 지원이 될 때 사용
+  - 빌드 시, 하나의 file로 결과물이 나온다.
+
+- rootDir
+
+  - 빌드될 프로젝트의 루트 디렉토리를 지정
+  - 해당 디렉토리를 기준으로 빌드가 이뤄지게 된다.
+  - 사용하지 않게되면, include / exclude 등 옵션을 기준으로 해서 빌드가 이뤄지게 된다.
+
+- strict
+
+  - ts type을 검사하는지에 대한 옵션, true 설정시, 아래의 옵션은 전부 true 한 것으로 설정된다.
+  - 항상 true로 사용할 것을 권장
+  - --noImplictAny
+  - --noImplictThis
+  - --strictNullChecks
+  - --strictFunctionTypes
+  - --strictPropertyInitialization
+  - --strictBindCallApply
+  - --alwaysStrict
+
+-
 
 ### Interfaces
 
