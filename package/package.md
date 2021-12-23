@@ -2204,8 +2204,6 @@ exclude
   - --strictBindCallApply
   - --alwaysStrict
 
--
-
 ### Interfaces
 
 인터페이스란?
@@ -2417,4 +2415,214 @@ let mergingInterface: IMerging;   // mergingInterface는 a, b 속성을 가지�
 
 ### Classes
 
-####
+class?
+
+- Object를 생성하는 blueprint
+- es6부터 사용 가능
+- class 이전에 object를 만드는 기본적인 방법은 function
+
+#### Quick Start
+
+- $ npm init -y
+
+- $ npm install --save-dev typescript
+
+- $ npx tsc --init
+
+```
+// example.ts
+class Person {
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+}
+
+const person = new Person("Mark");
+```
+
+#### constructor & initialize
+
+- 생성자 함수가 없으면, 디폴트 생성자가 호출됨
+- strict 모드에서는, 클래스 변수 선언시, 또는 생성자에서 값을 할당해줘야 한다.
+- 클래스 변수 선언시, 또는 생성자에서 값을 할당해주지 않는 경우, !를 붙여 위험을 표시한다.
+- 변수가 정의되어 있지만 값이 없다면, undefined이다.
+
+```
+class Person {
+  name: string = "Mark";
+  age!: number;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+}
+```
+
+#### Access Modifier
+
+public
+
+- 외부에서 접근 가능
+- default
+
+protected
+
+- 상속된 클래스 및 내부에서만 접근 가능
+
+private
+
+- 내부에서만 접근 가능
+- private 키워드가 없는 js에서는 변수 및 메서드 앞에 \_를 붙여 표현했다.
+
+#### initialize in constructor parameters
+
+- 아래의 두 클래스는 다른 표현법이지만, 같은 구조이다.
+- 아래의 방법 권장
+
+```
+class Person {
+  name: string;
+  private age: number;
+
+  constructor(name: string, age: number) {
+    this.name = name;
+    this.age = age;
+  }
+}
+
+class Person {
+  constructor(public name: string, private age: number) {}
+}
+
+const person: Person = new Person("Mark", 30);
+```
+
+#### Getter & Setter
+
+OOP를 위해 등장한 개념
+클래스 내부 변수 값 read write 기능
+
+```
+class Person {
+  constructor(public name: string, private age: number) {}
+
+  get name() { return this.name }
+  set name(name: string) { this.name = name; }
+}
+```
+
+#### readonly property
+
+readonly 속성이 붙은 변수는 값 변경이 불가능하다.
+
+#### index Signatures in class
+
+```
+// class => object
+// {mark: 'male', jade: 'male'}
+// {chery: 'female', alex: 'male', anna: 'female'}
+
+class Students {
+  [index: string]: "male" | "female";
+}
+
+const class_1 = new Students();
+class_1.mark = "male";
+class_1.jade = "female";
+
+const class_2 = new Students();
+class_2.chery = "female";
+class_2.alex = "male";
+class_2.anna = "female";
+```
+
+#### Static properties & Methods
+
+```
+class Person {
+  private static CITY = "Seoul";
+  static hello() {
+    console.log("hello " + Person.CITY);
+  }
+}
+
+Person.hello();   // "hello Seoul";
+```
+
+#### Singleton
+
+Singleton 패턴
+run 타임중, 하나만 사용되는 전역 클래스
+
+```
+class Singleton {
+  private static instance: Singleton | null = null;
+  public static getInstance(): Singleton {
+    if(instance === null) {
+      Singleton.instance = new Singleton();
+    }
+
+    return Singleton.instance;
+  }
+  private constructor() {}
+}
+
+const singleton = Singleton.getInstance();
+```
+
+#### inheritance
+
+```
+class Parent {
+  constructor(protected _name: string, private _age: number) {}
+
+  print(): void { console.log(`이름은 ${this._name}이고, 나이는 ${this._age} 입니다.`); }
+}
+
+class child extends Parent {
+  public gender: string = "male";
+  constructor(name: string, age: number) {
+    super(name, age);
+  }
+}
+```
+
+#### Abstract class
+
+```
+abstract class AbstractPerson {
+  protected _name: string = "Mark";
+
+  abstract setName(name: string): void;
+}
+
+class Person extends AbstractPerson {
+  setName(name: string): void {
+    this._name = name;
+  }
+}
+
+const person = new Person();
+person.setName("Mark2");
+```
+
+### Generic
+
+인자의 형만 다른, 같은 이름의 메소드가 많을 때, 사용
+
+```
+hello(value: number) { ... }
+hello(value: string) { ... }
+hello(value: boolean) { ... }
+
+hello<T>(value: T): T { ... }
+```
+
+#### Generic과 Any 차이점
+
+Any는 인자로 들어오는 형이 정확하지 않은 반면,
+Generic은 형이 정확하므로 런타임 전에 인텔리센스에 의해 에러 검지 가능
+
+#### Generic basic
