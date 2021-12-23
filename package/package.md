@@ -2553,7 +2553,7 @@ Person.hello();   // "hello Seoul";
 
 #### Singleton
 
-Singleton 패턴
+Singleton 패턴  
 run 타임중, 하나만 사용되는 전역 클래스
 
 ```
@@ -2622,7 +2622,146 @@ hello<T>(value: T): T { ... }
 
 #### Generic과 Any 차이점
 
-Any는 인자로 들어오는 형이 정확하지 않은 반면,
+Any는 인자로 들어오는 형이 정확하지 않은 반면,  
 Generic은 형이 정확하므로 런타임 전에 인텔리센스에 의해 에러 검지 가능
 
 #### Generic basic
+
+```
+function helloBasic<T, U>(message: T, comment: U): T {
+  return message;
+}
+
+helloBasic<string, number>("Mark", 39);   // 제네릭을 지정하면 지정된 형으로 검사
+helloBasic(36, 39);                       // 제네릭을 지정하지 않으면, 추론
+```
+
+#### Generic Array & Tuple
+
+Generic Array 인자
+
+```
+function helloArray<T>(value: T[]): T {
+  return message[0];
+}
+
+helloArray(["hello", "world"]);     // helloArray<string>(value: string[]): string 으로 추론
+helloArray(["hello", 5]);           // helloArray<string | number>(value: (string | number)[]): string | number 으로 추론
+```
+
+Generic Tuple 인자
+
+```
+function helloTuple<T, K>(message: [T, K]): T {
+  return message[0];
+}
+
+helloArray(["hello", "world"]);
+helloArray(["hello", 5]);
+```
+
+#### Generic Function
+
+```
+type HelloFunctionGeneric = <T>(message: T) => T;
+
+const helloFunction: HelloFunctionGeneric = <T>(message: T): T => {
+  return message;
+}
+```
+
+```
+interface HelloFunctionGeneric {
+<T>(message: T): T;
+}
+
+const helloFunction: HelloFunctionGeneric = <T>(message: T): T => {
+return message;
+}
+```
+
+#### Generic Class
+
+```
+class Person<T, K> {
+  private _name: T;
+  private _age: K;
+
+  constructor(name: T, age:K) {
+    this._name = name;
+    this._age = age;
+  }
+}
+
+new Person<string, number>("Mark", 30);
+```
+
+#### Generic with extends
+
+Generic 에서의 extends는 type 제한과 같은 역할
+
+```
+// T는 string 또는 number,
+// 이외의 형은 T가 될 수 없다.
+class PersonExtends<T extends string | number> {
+  private _name: T;
+
+  constructor(name: T) {
+    this._name = name;
+  }
+}
+
+new PersonExtends("Mark");      // ok
+new PersonExtends(30);          // ok
+new PersonExtends(true);        // error!
+```
+
+#### keyof & type lookup system
+
+keyof 키워드 및 Generic을 활용해, 컴파일 타임에 type을 정확하게 찾아내는 시스템 만들기
+
+```
+interface IPerson  {
+  name: string;
+  age: number;
+}
+
+type Keys = keyof IPerson;        // return "name" | "age";
+
+// IPerson[Keys]
+// => IPerson["name" | "age"]
+// => IPerson["name"] | IPerson["age"]
+// => string | number
+
+function getProperty(obj: IPerson, key: Keys) {
+  return obj[key];
+}
+
+function setProperty(obj: IPerson, key: Keys, value: ): void {
+  obj[key] = value
+}
+```
+
+```
+interface IPerson  {
+  name: string;
+  age: number;
+}
+
+const person: IPerson {
+  name: "Mark",
+  age: 30,
+}
+
+function getProp<T, K extends keyof T>(obj: T, key: K): T[K] {
+  return obj[key];
+}
+
+function setProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]): void {
+  obj[key] = value;
+}
+
+
+getProperty(person, "name");
+
+```
