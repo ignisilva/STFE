@@ -2856,7 +2856,71 @@ module.exports = {
     parser: 'babel-eslint'
   },
   rules: {
-
-  },
+    'vue/html-self-closing': ['error', {
+      html: {
+        void: 'always',
+        normal: 'never',
+        component: 'always'
+      },
+      svg: 'always',
+      math: 'always'
+    }],
+    'vue/html-closing-bracket-newline': ['error', {
+      singleline: 'never',
+      multiline: 'never'
+    }]
+  }
 };
 ```
+### Vue 기본
+
+- .vue의 구조
+  - template: html 
+  - script: js 
+  - style: css 
+
+- v- 로 시작하는 것들: 디렉티브
+
+### Vue 문법
+
+[Vue Docs 링크](https://kr.vuejs.org/v2/guide/instance.html)
+
+#### 인트턴스와 라이프사이클
+
+<img src="https://kr.vuejs.org/images/lifecycle.png" width="600">
+
+- vue 생성자로 vue 인스턴스 생성
+- 이벤트 및 라이프사이클 초기화
+- 상태: before create
+- 주입 및 반응성 초기화
+- 상태: created
+- el 옵션이 없다면, vm.$mount(el) 호출 / 있다면, template 옵션 있는지 확인
+- template옵션이 없다면, el's outerHTML을 템플릿으로 컴파일 / 있다면, template를 render function에서 컴파일
+- 상태: before mount
+- vm.$el 생성, 그리고 "el"을 생성된 것으로 대체
+- 상태: mounted
+  - 상태: beforeUpdate (데이터 변화가 생기기 전)
+  - 변화된 데이터에 맞춰 re-render
+  - 상태: updated (데이터 변화가 생긴 후)
+- vm.$destroy() 호출
+- 상태: beforeDestroy
+- 자식 컴포넌트 및 이벤트 리스너 분해(아마 메모리에서 제거)
+- 상태: destroted
+
+- 상태 정리
+  - before create
+    - 인스턴스 생성 전,
+    - 데이터가 가지고 있지 않음
+  - created
+    - 인스턴스 생성 후, 
+    - 데이터를 가지고 있음
+  - beforeMount
+    - 인스턴스가 DOM에 적용되기 전,
+    - DOM에 마크업 구조 등이 적용 되어 있지 않음
+  - mounted
+    - 인스턴스가 DOM에 적용 된 후,
+    - DOM에 마크업 구조 등이 적용됨
+
+- 많이 사용되는 라이프사이클 함수
+  - created()
+  - mounted()
