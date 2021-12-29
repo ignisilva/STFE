@@ -2924,3 +2924,70 @@ module.exports = {
 - 많이 사용되는 라이프사이클 함수
   - created()
   - mounted()
+
+  #### template 문법
+
+  보간법(Interpolation)
+
+ - 문자열: Mustache (이중 중괄호 구문 - {{ ~ }}) 사용한 보간법
+  - mustache안의 값은, 반응성을 가지게 됨
+  - v-once 디렉티브 사용시, 초기화 이후 반응성을 잃음
+  - ```
+      <span v-once>변하지 않는 값: {{ value }}</span>
+    ```
+
+
+- HTML 형식
+  - 실제 HTML 출력
+  - v-html 사용
+  - ```
+      value: `<div style="color: red;">Hello</div>`
+      <div v-html="value"></div>
+    ```
+  
+- 속성
+  - HTML 속성에 값 적용시,
+  - v-bind 사용(v-bind는 생략이 가능하다)
+  - ```
+      // v-bind
+      <div v-bind:id="dynamicId"></div>
+      or
+      <div :id="dynamicId"></div>
+
+      // 번외 v-on (이벤트 핸들러)
+      <div v-on:click="clickHandler"></div>
+      or
+      <div @click="clickHandler"></div>
+    ```
+
+- dynamic 속성
+  - HTML 태그 내 속성을 동적으로 지정 가능
+  - ```
+      <template>
+        <h1
+          :[attr]="'active'"
+          @[event]="add"
+        >
+          {{ msg }}
+        </h1>
+      </template>
+
+      <script>
+      export default {
+        data() {
+          return {
+            msg: 'active',
+            attr: 'class',
+            event: 'click',
+          }
+        },
+        methods: {
+          add() {
+            this.msg += '!'
+          }
+        }
+      }
+      </script>
+    ```
+
+- 
