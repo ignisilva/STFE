@@ -2765,3 +2765,98 @@ function setProperty<T, K extends keyof T>(obj: T, key: K, value: T[K]): void {
 getProperty(person, "name");
 
 ```
+
+## Vue
+
+### Vue 시작하기
+
+- $ npx degit ParkYoungWoong/webpack-template-basic vue3-webpack-template
+
+  - degit: git clone과 비슷, 단 그간 commit 내역없이 cloning
+
+- vue3-webpack-template로 이동
+
+- src/main.js, src/App.vue 파일 생성
+
+- $ npm i vue@next (vue3버전 설치)
+
+- $ npm i -D vue-loader@next vue-style-loader @vue/compiler-sfc (vue3 webpack 관련 패키지 설치)
+
+- $ npm i -D file-loader (파일을 읽어서 출력할 수 있게 해주는 로더)
+
+- webpack.config.js 수정
+
+```
+const { VueLoaderPlugin } = require('vue-loader');
+
+module.exports = {
+  resolve: {
+    extensions: [".js", ".vue"],
+    alias: {
+      '~': path.resolve(__dirname, 'src'),
+      'assets': path.resolve(__dirname, 'src/assets'),
+    }
+  }
+
+  entry: './src/main.js',
+  ...
+
+  module: {
+    rules: [
+      {
+        test: /\.vue$/,
+        use: 'vue-loader',
+      },
+      {
+        test: /\.s?css$/,
+        use: [
+          // 순서 중요
+          'vue-style-loader',
+          'style-loader',
+          'css-loader',
+          'postcss-loader',
+          'sass-loader',
+        ]
+      },
+      ...
+      {
+        test: /\.(png|jpe?g|gif|webp)$/,
+        use: 'file-loader'
+      },
+    ]
+  },
+  plugins: [
+    ...,
+    new VueLoaderPlugin()
+  ]
+}
+```
+
+- $ npm i -D eslint eslint-plugin-vue babel-eslint (eslint 관련 설치)
+- /.eslintrc.js 생성
+
+```
+// .eslintrc.js
+
+module.exports = {
+  evn: {
+    broser: true,
+    node: true,
+  },
+  extends: [
+    // vue (eslint-plugin-vue option)
+    // "plugin:vue/vue3-essential", // Lv1
+    "plugin:vue/vue3-strongly-recommended", // Lv2
+    // "plugin:vue/vue3-recommended", // Lv3
+
+    // js
+    "eslint:recommended",
+  ],
+  parserOptions: {
+    parser: 'babel-eslint'
+  },
+  rules: {
+
+  },
+};
+```
