@@ -3015,23 +3015,6 @@ export default {
 }
 ```
 
-- v-for
-  - 태그 반복문
-  - ```
-      furits: ['apple', 'banana']
-
-      <ul>
-        <li
-          v-for="fruit in fruits"
-          :key="fruit"
-        >
-          {{ fruit }}
-        </li>
-      </ul>
-
-      // <li>apple</li><li>banana</li>
-    ```
-
 #### computed 캐싱
 
 computed로 연산된 값은 캐싱됨
@@ -3203,6 +3186,7 @@ export default {
 
 - v-if
   - v-if 조건문 만족시에만, 해당 태그가 활성화
+  - 전환시, DOM에 수정이 필요하므로 전환 비용이 높다
   - ```
       furits: []
 
@@ -3216,6 +3200,189 @@ export default {
 - v-else
   - v-if 조건문 만족하지 않을시, 해당 태그 활성화
 
+- v-show
+  - 조건문 만족시에만, 해당 태그가 활성화
+  - 전환시, DOM에 수정이 없으므로 전환 비용이 낮다
+  - 자주 전환시 v-show가 좋다
+  - v-if와의 차이점
+    - v-if는 해당 태그의 DOM의 생성 여부를 결정
+    - v-show는 태그를 DOM에 생성하되 display: none; 여부를 결정
+
 #### 리스트 렌더링
 
+- v-for
+  - 태그 반복문
+  - ```
+      <template>
+        <ul>
+          <li
+            v-for="fruit in newFruits"
+            :key="fruit.id"
+          >
+            {{ fruit.name }}
+          </li>
+        </ul>
+      </template>
 
+      <script>
+      import shortid from 'shortid' // 해시값 같은 고유 문자열 반환
+
+      export default {
+        data() {
+          return {
+            fruits: ['apple', 'banana', 'cherry']
+          }
+        },
+        computed: {
+          newFruits() {
+            return this.fruits.map((fruit) => ({
+              id: shortid.generate(),
+              name: fruit
+            })
+          }
+        }
+      }
+      </script>
+    ```
+
+Vue는 배열 변경이 일어날시, 감지하고 거기에 반응한다.
+  - list 자체에 변경을 주는 메소드들
+    - push
+    - pop
+    - shift
+    - unshift
+    - splice
+    - sort
+    - reverse
+  - list 자체에 변경을 주지는 않지만 대입 연산자를 통해 Vue가 감지 가능
+    - map
+    - filter
+    - ...
+
+#### 이벤트 종류
+
+@click
+@wheel
+@keydown
+
+#### 이벤트 핸들링
+
+```
+<template>
+ <button @click="handler('1', $event)">
+  단일 핸들러 인자 및 이벤트 받기
+ </button>
+ <button @click="handlerA(), handlerB()">
+  여러 핸들러 호출
+ </button>
+</template>
+
+<script>
+export default {
+  methods: {
+    handler(msg, event) {
+      console.log(msg)
+      console.log(event)
+    },
+    handlerA() {
+      console.log('A');
+    },
+    handlerB() {
+      console.log('B');
+    }
+  }
+}
+</script>
+```
+
+#### 이벤트 핸들링 - 수식어
+
+- 참고
+  - 이벤트 버블링
+    - 자식 요소의 이벤트가 발생했을 때, 부모 요소의 이벤트가 같이 호출되는 경우 의미
+  - 이벤트 캡처링
+    - 부모 요소의 이벤트가 발생했을 때, 자식 요소의 이벤트가 같이 호출되는 경우 의미
+
+- 수식어는 event를 쉽게 사용하기 위한 방법
+- 수식어는 chaining 방식으로 사용 가능
+
+- 종류
+  - .prevent: 태그의 기본 기능 무효화
+  - .once: 이벤트 핸들러 한번만 실행
+  - .stop: 이벤트 버블링 방지
+  - .capture: 이벤트 캡처링 발생 (부모 핸들러 먼저 호출 후, 자식 핸들러 호출)
+  - .self: 해당 태그의 영역을 정확히 클릭했을 때만 이벤트 핸들러 호출(자식 등 기타 태그에 의한 영역 제외)
+  - .passive: 기본적으로 브라우저는 로직이 완료된 후, DOM을 업데이트 함  
+              passive는 이를 직렬처리가 아닌 병행처리로 바꿈  
+              .prevent와 같이 사용 X (.prevent 무시되며 error 유발)
+```
+<template>
+  <a
+    href="https://naver.com"
+    target="_blank"
+    @click="handler"
+  >
+    NAVER
+  </a>
+</template>
+
+<script>
+export default {
+  methods: {
+    handler(e) {
+      e.preventDefault()  // 태그의 기본 기능 무효화
+      console.log("ABC")
+    }
+  }
+}
+</script>
+or
+<template>
+  <a
+    href="https://naver.com"
+    target="_blank"
+    @click.prevent="handler"
+  >
+    NAVER
+  </a>
+</template>
+
+<script>
+export default {
+  methods: {
+    handler(e) {
+      console.log("ABC")
+    }
+  }
+}
+</script>
+```
+
+#### 이벤트 핸들링 - 키 수식어
+
+- @keydown
+  - .enter: enter key가 눌렸을 때
+  - .\*: 하나의 해당하는 문자가 눌렸을 때 (* = [A-Z|a-z])
+
+```
+<template>
+ <input
+  type="text"
+  @keydown.enter="handler"    // enter key 입력
+ />
+ <input
+  type="text"
+  @keydown.ctrl.shift.s="handler"   // ctrl + shift + s 입력
+ />
+</template>
+
+<script>
+export default {
+  methods: {
+    handler() {
+      console.log('Enter');
+    }
+  }
+}
+</script>
+```
