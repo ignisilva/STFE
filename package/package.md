@@ -3264,6 +3264,7 @@ Vue는 배열 변경이 일어날시, 감지하고 거기에 반응한다.
 @click
 @wheel
 @keydown
+@input
 
 #### 이벤트 핸들링
 
@@ -3381,6 +3382,79 @@ export default {
   methods: {
     handler() {
       console.log('Enter');
+    }
+  }
+}
+</script>
+```
+
+#### Form input binding
+
+```
+// 단방향 데이터 바인딩
+<template>
+  <h1>{{ msg }}</h1>
+  <input
+    type="text"
+    :value="msg"
+  />
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      msg: 'Hello world'
+    }
+  }
+}
+</script>
+```
+
+```
+// 양방향 데이터 바인딩
+<template>
+  <h1>{{ msg }}</h1>
+  <input
+    type="text"
+    :value="msg"
+    @input="msg = $event.target.value"    // 한 문자 입력마다 data변경 반영
+  />
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      msg: 'Hello world'
+    }
+  }
+}
+</script>
+```
+
+```
+// 양방향 바인딩 v-model 버전
+<template>
+  <h1>{{ msg }}</h1>
+  <input
+    type="text"
+    v-model="msg"           // 한글자가 완성되어야 data변경 반영(한글 입력시 문제 발생)
+  />
+
+  <h1>{{ checked }}</h1>
+  <input
+    type="checkbox"
+    v-model="checked"
+  />
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      msg: 'Hello world'
+      checked: false
     }
   }
 }
