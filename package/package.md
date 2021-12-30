@@ -3015,18 +3015,6 @@ export default {
 }
 ```
 
-- v-if
-  - v-if 조건문 만족시에만, 해당 태그가 활성화
-  - ```
-      furits: []
-
-      <section v-if="furits.length > 0">
-        ...
-      <section>
-
-      // 위의 section은 보이지 않음
-    ```
-
 - v-for
   - 태그 반복문
   - ```
@@ -3150,8 +3138,84 @@ export default {
 
 #### 클래스와 스타일 바인딩
 
+```
+<template>
+  <h1 
+    :class="{ active: isActive }"
+    @click="activate">
+    hello {{ isActive }}
+  </h1>
+</template>
 
+<script>
+export default {
+  data() {
+    return {
+      isActive: false
+    }
+  },
+  methods: {
+    activate() {
+      this.isActive = true
+    }
+  }
+}
+</script>
 
+<style scoped>
+  .active {
+    color: red;
+    font-weight: bold;
+  }
+</style>
+```
 
+```
+<template>
+  <h1
+    :style="fontStyle"
+    @click="changeStyle"
+  >
+    Hello
+  </h1>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      fontStyle: {
+        color: 'orange',
+        fontSize: '30px'
+      }
+    }
+  },
+  methods: {
+    changeStyle() {
+      this.color = 'red'
+      this.fontSize = '50px'
+    }
+  }
+}
+</script>
+```
+#### 조건부 렌더링
+
+- v-if
+  - v-if 조건문 만족시에만, 해당 태그가 활성화
+  - ```
+      furits: []
+
+      <section v-if="furits.length > 0">
+        ...
+      <section>
+
+      // 위의 section은 보이지 않음
+    ```
+
+- v-else
+  - v-if 조건문 만족하지 않을시, 해당 태그 활성화
+
+#### 리스트 렌더링
 
 
