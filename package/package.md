@@ -2990,4 +2990,168 @@ module.exports = {
       </script>
     ```
 
-- 
+#### computed 옵션
+
+- computed: data의 값을 추가적으로 어떤 연산처리 할 때 사용
+```
+export default {
+  data() {
+    return {
+      fruits: [
+
+      ]
+    }
+  },
+  computed: {
+    hasFruit() {
+      return this.fruits.length > 0
+    },
+    reverseFruits() {
+      return this.fruits.map(fruit => {
+        return fruit.split('').reverse().join('')
+      })
+    }
+  }
+}
+```
+
+- v-if
+  - v-if 조건문 만족시에만, 해당 태그가 활성화
+  - ```
+      furits: []
+
+      <section v-if="furits.length > 0">
+        ...
+      <section>
+
+      // 위의 section은 보이지 않음
+    ```
+
+- v-for
+  - 태그 반복문
+  - ```
+      furits: ['apple', 'banana']
+
+      <ul>
+        <li
+          v-for="fruit in fruits"
+          :key="fruit"
+        >
+          {{ fruit }}
+        </li>
+      </ul>
+
+      // <li>apple</li><li>banana</li>
+    ```
+
+#### computed 캐싱
+
+computed로 연산된 값은 캐싱됨
+
+```
+<template>
+  <h1>{{ msg.split('').reverse().join('') }}</h1>
+  <h1>{{ reverseMessage() }}</h1>
+  <h1>{{ reversedMessage }}</h1>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      msg: 'Hello Computed'
+    }
+  },
+  computed: {
+    reversedMessage() {   // 메소드명이 "reversed"!
+      return this.msg.split('').reverse().join('')
+    }
+  },
+  methods: {
+    reverseMessage() {
+      return this.msg.split('').reverse().join('')
+    },
+  }
+}
+</script>
+```
+
+#### Getter / Setter
+
+- data
+  - 변수 선언 관련
+- computed
+  - 변수 조작 관련
+  - 변수에 대한 Getter / Setter 등 선언
+  - 캐싱 기능이 존재
+
+- Get(): 값을 불러올때 콜백되는 함수
+- Set(): 값을 입력할때 콜백되는 함수
+
+```
+export default {
+  data() {
+    return {
+      msg: 'Hello Computed'
+    },
+  },
+  computed: {
+    // Getter / Setter
+    reversedMessage: {
+      get() {
+        return this.msg.split('').reverse().join('')
+      },
+      set(newMsg) {
+        this.msg = newMsg
+      }
+    }
+  }
+}
+```
+
+#### watch
+
+- 특정한 데이터의 변경을 감지
+
+```
+<template>
+  <h1 @click="changeMessage">{{ msg }}</h1>
+  <h1>{{ reversedMessage }}</h1>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      msg: 'Hello?'
+    }
+  },
+  computed: {
+    reversedMessage() {
+      return this.msg.split('').reverse().join('')
+    }
+  },
+  watch: {
+    msg(newValue) {
+      console.log('msg: ', newValue)
+    },
+    reversedMessage(newValue) {
+      console.log('reversedMessage: ', newValue)
+    }
+  },
+  methods: {
+    changeMessage() {
+      this.msg = 'Good'
+    }
+  }
+}
+</script>
+```
+
+#### 클래스와 스타일 바인딩
+
+
+
+
+
+
