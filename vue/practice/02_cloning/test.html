@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- <script src="main.js" type="module"></script> -->
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+      }
+      li {
+        list-style: none;
+      }
+      body {
+        padding: 30px;
+      }
+      .list {
+        margin: 20px 0;
+      }
+      .list > li {
+        width: 200px;
+        border: 1px solid gray;
+        padding: 10px;
+      }
+      .list > li > * {
+        display: block;
+      }
+      .list > li > img {
+        width: 200px;
+        margin-bottom: 20px;
+      }
+      .list > li > strong {
+        font-size: 20px;
+        color: #666;
+        margin-bottom: 10px;
+      }
+      .list > li > span {
+        margin-bottom: 10px;
+      }
+      .cart > ul > li {
+        border-bottom: 1px dotted #e4e4e4;
+        line-height: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="app">
+      <h1>Sales Product : cart({{ total }}) - {{ totalPrice }}원</h1>
+      <div class="cart">
+        <h3>구입목록</h3>
+        <ul>
+          <li v-for="(crr, i) in crrIndex">
+            <strong>{{ chips[crr].title }}</strong>
+            <span>{{ chips[crr].price }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <product-list
+        v-bind:items-data="chips"
+        v-on:pick-up="parentWork"
+      ></product-list>
+    </div>
+
+    <script>
+      // Vue.component('product-list', {
+      //     template: `
+      //         <li>
+      //             <img src="images/mango.jpg" />
+      //             <strong>천연 오가닉 사과칩</strong>
+      //             <span>깨끗한 재료를 엄선하여 자연을 그대로 담았습니다.</span>
+      //             <b>2,000원</b>
+      //         </li>
+      //     `,
+      //     data() {
+      //         return {
+      //             age:24
+      //         }
+      //     },
+      // });
+      const productList = {
+        template: `
+        <ul class="list" >
+            <li v-for="(item, i) in itemsData" v-bind:key="i">
+                <img v-bind:src="item.img" />
+                <strong>{{ item.title }}</strong>
+                <span>{{ item.desc }}</span>
+                <b>{{ item.price }} 원</b>
+                <button v-on:click="childWork(i)">구입</button>
+            </li>
+        </ul>
+    `,
+        props: ["itemsData"],
+        methods: {
+          childWork(index) {
+            this.$emit("pick-up", index);
+          },
+        },
+      };
+
+      const 붕어빵 = new Vue({
+        el: "#app",
+        components: { productList },
+        data: {
+          total: 0,
+          totalPrice: 0,
+          crrIndex: [],
+          chips: [
+            {
+              img: `images/mango.jpg`,
+              title: `자연그대로 망고칩`,
+              desc: `단맛이 그대로 살아있는 망고칩입니다.`,
+              price: 2500,
+            },
+            {
+              img: `images/apple.jpg`,
+              title: `천연 오가닉 사과칩`,
+              desc: `깨끗한 재료를 엄선하여 자연을 그대로 담았습니다.`,
+              price: 2000,
+            },
+            {
+              img: `images/jujube.jpg`,
+              title: `아이깨끗 대추칩`,
+              desc: `새콤함이 살아있는 반건조 대추그대로.`,
+              price: 3000,
+            },
+          ],
+        },
+        methods: {
+          parentWork(index) {
+            console.log("수신했다!");
+            this.total++;
+            this.totalPrice += this.chips[index].price;
+            this.crrIndex.push(index);
+          },
+        },
+      });
+    </script>
+  </body>
+</html>
