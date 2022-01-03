@@ -2872,12 +2872,14 @@ module.exports = {
   }
 };
 ```
+
 ### Vue 기본
 
 - .vue의 구조
-  - template: html 
-  - script: js 
-  - style: css 
+
+  - template: html
+  - script: js
+  - style: css
 
 - v- 로 시작하는 것들: 디렉티브
 
@@ -2908,11 +2910,12 @@ module.exports = {
 - 상태: destroted
 
 - 상태 정리
+
   - before create
     - 인스턴스 생성 전,
     - 데이터가 가지고 있지 않음
   - created
-    - 인스턴스 생성 후, 
+    - 인스턴스 생성 후,
     - 데이터를 가지고 있음
   - beforeMount
     - 인스턴스가 DOM에 적용되기 전,
@@ -2922,6 +2925,7 @@ module.exports = {
     - DOM에 마크업 구조 등이 적용됨
 
 - 많이 사용되는 라이프사이클 함수
+
   - created()
   - mounted()
 
@@ -2929,13 +2933,12 @@ module.exports = {
 
   보간법(Interpolation)
 
- - 문자열: Mustache (이중 중괄호 구문 - {{ ~ }}) 사용한 보간법
-  - mustache안의 값은, 반응성을 가지게 됨
-  - v-once 디렉티브 사용시, 초기화 이후 반응성을 잃음
-  - ```
-      <span v-once>변하지 않는 값: {{ value }}</span>
-    ```
-
+- 문자열: Mustache (이중 중괄호 구문 - {{ ~ }}) 사용한 보간법
+- mustache안의 값은, 반응성을 가지게 됨
+- v-once 디렉티브 사용시, 초기화 이후 반응성을 잃음
+- ```
+    <span v-once>변하지 않는 값: {{ value }}</span>
+  ```
 
 - HTML 형식
   - 실제 HTML 출력
@@ -2944,8 +2947,8 @@ module.exports = {
       value: `<div style="color: red;">Hello</div>`
       <div v-html="value"></div>
     ```
-  
 - 속성
+
   - HTML 속성에 값 적용시,
   - v-bind 사용(v-bind는 생략이 가능하다)
   - ```
@@ -2961,6 +2964,7 @@ module.exports = {
     ```
 
 - dynamic 속성
+
   - HTML 태그 내 속성을 동적으로 지정 가능
   - ```
       <template>
@@ -2990,9 +2994,10 @@ module.exports = {
       </script>
     ```
 
-#### computed 옵션
+#### computed 속성
 
 - computed: data의 값을 추가적으로 어떤 연산처리 할 때 사용
+
 ```
 export default {
   data() {
@@ -3052,6 +3057,7 @@ export default {
 - data
   - 변수 선언 관련
 - computed
+
   - 변수 조작 관련
   - 변수에 대한 Getter / Setter 등 선언
   - 캐싱 기능이 존재
@@ -3123,7 +3129,7 @@ export default {
 
 ```
 <template>
-  <h1 
+  <h1
     :class="{ active: isActive }"
     @click="activate">
     hello {{ isActive }}
@@ -3182,9 +3188,11 @@ export default {
 }
 </script>
 ```
+
 #### 조건부 렌더링
 
 - v-if
+
   - v-if 조건문 만족시에만, 해당 태그가 활성화
   - 전환시, DOM에 수정이 필요하므로 전환 비용이 높다
   - ```
@@ -3198,6 +3206,7 @@ export default {
     ```
 
 - v-else
+
   - v-if 조건문 만족하지 않을시, 해당 태그 활성화
 
 - v-show
@@ -3211,6 +3220,7 @@ export default {
 #### 리스트 렌더링
 
 - v-for
+
   - 태그 반복문
   - ```
       <template>
@@ -3246,25 +3256,28 @@ export default {
     ```
 
 Vue는 배열 변경이 일어날시, 감지하고 거기에 반응한다.
-  - list 자체에 변경을 주는 메소드들
-    - push
-    - pop
-    - shift
-    - unshift
-    - splice
-    - sort
-    - reverse
-  - list 자체에 변경을 주지는 않지만 대입 연산자를 통해 Vue가 감지 가능
-    - map
-    - filter
-    - ...
+
+- list 자체에 변경을 주는 메소드들
+  - push
+  - pop
+  - shift
+  - unshift
+  - splice
+  - sort
+  - reverse
+- list 자체에 변경을 주지는 않지만 대입 연산자를 통해 Vue가 감지 가능
+  - map
+  - filter
+  - ...
 
 #### 이벤트 종류
 
-@click
-@wheel
-@keydown
-@input
+- @click: click 했을때
+- @dbclick: double click 했을때
+- @wheel: scroll 입력이 있을때
+- @keydown: key가 눌렸을때
+- @input: value가 바뀌었을때(실시간)
+- @change: value값이 바뀌고 blur 됐을때
 
 #### 이벤트 핸들링
 
@@ -3299,6 +3312,7 @@ export default {
 #### 이벤트 핸들링 - 수식어
 
 - 참고
+
   - 이벤트 버블링
     - 자식 요소의 이벤트가 발생했을 때, 부모 요소의 이벤트가 같이 호출되는 경우 의미
   - 이벤트 캡처링
@@ -3314,8 +3328,9 @@ export default {
   - .capture: 이벤트 캡처링 발생 (부모 핸들러 먼저 호출 후, 자식 핸들러 호출)
   - .self: 해당 태그의 영역을 정확히 클릭했을 때만 이벤트 핸들러 호출(자식 등 기타 태그에 의한 영역 제외)
   - .passive: 기본적으로 브라우저는 로직이 완료된 후, DOM을 업데이트 함  
-              passive는 이를 직렬처리가 아닌 병행처리로 바꿈  
-              .prevent와 같이 사용 X (.prevent 무시되며 error 유발)
+     passive는 이를 직렬처리가 아닌 병행처리로 바꿈  
+     .prevent와 같이 사용 X (.prevent 무시되며 error 유발)
+
 ```
 <template>
   <a
@@ -3363,7 +3378,7 @@ export default {
 
 - @keydown
   - .enter: enter key가 눌렸을 때
-  - .\*: 하나의 해당하는 문자가 눌렸을 때 (* = [A-Z|a-z])
+  - .\*: 하나의 해당하는 문자가 눌렸을 때 (\* = [A-Z|a-z])
 
 ```
 <template>
@@ -3460,3 +3475,249 @@ export default {
 }
 </script>
 ```
+
+#### v-model 수식어
+
+- @v-model.lazy: = @change
+- @v-model.number: v-model 사용시, default로 string값, 하지만 .number 사용시 값은 number type을 가진다.
+- @v-model.trim: 자동으로 입력되는 값에 trim 적용
+
+#### 컴포넌트
+
+- props: 부모 자식간의 데이터 통신 방법 (component의 매개변수 비슷)
+  - 숫자 또는 변수를 prop에 넣으려면 v-binding(:) 필요 (아니라면 string type으로 전달됨)
+  - 컴포넌트 사이에 들어가는 innerHtml 구조는 slot으로 받아서 사용할 수 있음
+
+```
+// src/App.vue
+<template>
+  // 글자 1, 배경 검은색 버튼
+  <MyBtn :color="color" />
+
+  // 글자 123, 배경 royalblue 버튼
+  <MyBtn :inputValue="123" color="royalblue" />
+
+  // 글자 1, 큰 버튼, 배경 gray 버튼
+  <MyBtn
+    large
+    color="royalblue"
+  />
+
+  // 글자 Banana 1, 배경 gray 버튼
+  <MyBtn>Banana</MyBtn>
+</template>
+
+<script>
+import MyBtn from '~/component.MyBtn'
+
+export default {
+  components: {
+    MyBtn
+  },
+  data() {
+    return {
+      color: '#000'
+    }
+  }
+}
+</script>
+
+// src/components/MyBtn.vue
+<template>
+  <div
+    :class="{ large }"
+    :style="{ backgroundColor: color }"
+    class="btn"
+  >
+    <slot></slot>{{ inputValue }}
+  </div>
+</template>
+
+<script>
+export default {
+  props: {
+    color: {
+      type: String,
+      default: 'gray'
+    },
+    inputValue: {
+      Number,
+      default: 1
+    },
+    large: {
+      type: Boolean,
+      default: false
+    }
+  }
+}
+</script>
+
+<style scoped>
+  .btn {
+    display: inline-block;
+    margin: 4px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    background-color: gray;
+    color: white;
+    cursor: pointer;
+    &.large {
+      font-size: 20px;
+      padding: 10px 20px;
+    }
+  }
+</style>
+```
+
+#### 컴포넌트 속성 상속
+
+- 속성의 상속
+  - default: 컴포넌트 내부에 최상위 요소가 하나라면 외부에서 선언된 속성값이 적용됨 (반대로, 최상위 요소가 여러개 일경우 외부에서 사용된 속성값은 적용되지 않음)
+    - 최상위 요소가 여러개 일때는 $attrs 를 사용하여, 외부에서 선언된 속성값을 사용 할 수 있음
+  - 컴포넌트 inheritAttrs: false : 컴포넌트 내부에 최상위 요소가 하나라도 외부에서 선언된 속성값이 적용되지 않음
+
+```
+// src/App.vue
+<template>
+  <MyBtn class="test" style="color: red;">
+    Banana
+  </MyBtn>
+</template>
+
+<script>
+import MyBtn from '~/component.MyBtn'
+
+export default {
+  components: {
+    MyBtn
+  },
+}
+</script>
+
+// src/components/MyBtn.vue
+<template>
+  <div
+    class="btn"
+  >
+    <slot></slot>
+  </div>
+
+  // attrs 를 사용하는 두가지 방법 (결과는 같다)
+  <h1
+    :class="$attrs.class"
+    :style="$attrs.style"
+  ></h1>
+  <h1
+    v-bind="$attrs"
+  ></h1>
+</template>
+
+<script>
+export default {
+  inheritAttrs: false,
+  created() {
+    console.log(this.$attrs); // class="test" style: { color: "red" }
+  }
+}
+</script>
+
+<style scoped>
+  .btn {
+    display: inline-block;
+    margin: 4px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    background-color: gray;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+```
+
+#### 컴포넌트 Emit
+
+- 속성과 마찬가지로, event도 최상위 요소가 하나일 때, 외부에서 선언된 event를 상속받을 수 있다.
+- 최상위 요소가 여러가지인 경우 외부의 event를 내부에 엮는 방법이 emit이다
+
+```
+// src/App.vue
+<template>
+  <MyBtn @handler="log" @change-msg="logMsg">
+    Banana
+  </MyBtn>
+</template>
+
+<script>
+import MyBtn from '~/component.MyBtn'
+
+export default {
+  components: {
+    MyBtn
+  },
+  methods: {
+    log(event) {
+      console.log('Click')
+      console.log(event);
+    },
+    logMsg(msg) {
+      console.log(msg);
+    }
+  }
+}
+</script>
+
+// src/components/MyBtn.vue
+<template>
+  <div
+    class="btn"
+  >
+    <slot></slot>
+  </div>
+  <h1 @click="$emit('handler', $event)">
+    ABC
+  </h1>
+  <input 
+    type="text"
+    v-model="msg"
+  />
+</template>
+
+<script>
+export default {
+  emits: [
+    'handler',
+    'changeMsg',
+  ],
+  data() {
+    return {
+      msg: ''
+    },
+  },
+  watch: {
+    msg() {
+      this.$emit('changeMsg', this.msg)
+    }
+  }
+}
+</script>
+
+<style scoped>
+  .btn {
+    display: inline-block;
+    margin: 4px;
+    padding: 6px 12px;
+    border-radius: 4px;
+    background-color: gray;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+```
+
+#### 컴포넌트 Slot
+
+#### 컴포넌트 Provide
+
+#### 컴포넌트 Inject
+
+#### 컴포넌트 Ref
