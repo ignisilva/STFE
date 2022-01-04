@@ -2766,6 +2766,27 @@ getProperty(person, "name");
 
 ```
 
+## Bundler
+
+- 번들러?
+  - 프로젝트 빌드 결과물? = html/css/js
+  - 원래는 빌드 시, 각 라이브러리들을 통해 수동적으로 빌드시켜, 빌드 결과물을 얻어내야 함
+  - 번들러 사용시, 라이브러리들의 수동 빌드를, 자동으로 빌드시켜 빌드 결과물을 얻어낼 수 있음
+
+### Parcel
+
+- 구성 없는 단순한 자동 번들링
+- 소/중형 프로젝트에 적합
+
+####
+
+### Webpack
+
+- 매우 꼼꼼한 구성
+- 중/대형 프로젝트에 적합
+
+####
+
 ## Vue
 
 ### Vue 시작하기
@@ -3328,8 +3349,8 @@ export default {
   - .capture: 이벤트 캡처링 발생 (부모 핸들러 먼저 호출 후, 자식 핸들러 호출)
   - .self: 해당 태그의 영역을 정확히 클릭했을 때만 이벤트 핸들러 호출(자식 등 기타 태그에 의한 영역 제외)
   - .passive: 기본적으로 브라우저는 로직이 완료된 후, DOM을 업데이트 함  
-     passive는 이를 직렬처리가 아닌 병행처리로 바꿈  
-     .prevent와 같이 사용 X (.prevent 무시되며 error 유발)
+    .passive는 이를 직렬처리가 아닌 병행처리로 바꿈  
+    .prevent와 같이 사용 X (.prevent 무시되며 error 유발)
 
 ```
 <template>
@@ -3676,7 +3697,7 @@ export default {
   <h1 @click="$emit('handler', $event)">
     ABC
   </h1>
-  <input 
+  <input
     type="text"
     v-model="msg"
   />
