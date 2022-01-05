@@ -13,6 +13,16 @@ module.exports = {
     clean: true, // 빌드시, 기존에 생성된 dist 제거 후 재 생성
   },
 
+  module: {
+    rules: [
+      {
+        test: /\.css$/,
+        // use 순서 중요
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
+
   // 번들링 후, 결과물의 처리 방식 등 다양한 플러그인들을 설정
   plugins: [
     new HtmlPlugin({
