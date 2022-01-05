@@ -1,5 +1,6 @@
 const path = require("path");
 const HtmlPlugin = require("html-webpack-plugin");
+const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
   // 파일을 읽어들이기 시작하는 진입점 설정
@@ -16,6 +17,13 @@ module.exports = {
   plugins: [
     new HtmlPlugin({
       template: "./index.html",
+    }),
+    new CopyPlugin({
+      patterns: [
+        {
+          from: "static",
+        },
+      ],
     }),
   ],
 
