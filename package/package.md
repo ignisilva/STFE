@@ -2778,7 +2778,77 @@ getProperty(person, "name");
 - 구성 없는 단순한 자동 번들링
 - 소/중형 프로젝트에 적합
 
-####
+#### 정적 파일 연결
+
+- 정적 파일?
+
+  - 대표적으로 이미지 또는 favicon
+
+- [ico converter](https://www.icoconverter.com/)
+
+  - 이미지를 favicon.ico로 바꿔주는 사이트
+  - 32pixels / 32 bits 면 충분
+
+- favicon.ico의 경우, 자동으로 parcel에서 인식하지 않음, 패키지의 도움을 받아야 함
+  - $ npm install -D parcel-plugin-static-files-copy
+  - staticFiles 옵션 추가: parcel build시 적용할 정적 파일들을 읽어들일 폴더명
+  - ```
+      // package.json
+      "staticFiles": {
+        "staticPath": "static",
+      }
+    ```
+
+#### autoprefixer
+
+- 구형 브라우저에서도 기존의 신형 CSS를 사용할 수 있게 자동으로 CSS를 구성해주는 라이브러리
+
+  - $ npm install -D postcss autoprefixer
+  - browserslist 옵션 추가: 현재 프로젝트에서 지원할 브라우저 범위 명시
+    - "> 1%": 전세계 점유율이 1% 이상인 모든 브라우저
+    - "last 2 versions": 해당 브라우저의 최근 2개 버전까지
+    - ```
+        // package.json
+        "browserslist": [
+          "> 1%",
+          "last 2 versions"
+        ]
+      ```
+  - .postcssrc.js 추가
+
+    - ```
+        const autoprefixer = require("autoprefixer");
+
+        module.exports = {
+          plugins: [autoprefixer],
+        };
+      ```
+
+  - 적용 확인: css 파일에 display:flex 적용 후, 브라우저 개발자 도구로 확인
+
+#### babel
+
+- ES6 이상 버전 코드를 이전 버전 코드로 변환 시키는 js트랜스 컴파일러
+
+  - $ npm install -D @babel/core @babel/preset-env @babel/plugin-transform-runtime // @babel/plugin-transform-runtime(async await)
+  - .babelrc.js 추가
+  - ```
+      module.exports = {
+        presets: ["@babel/preset-env"],
+        plugins: [["@babel/plugin-transform-runtime"]],
+      };
+    ```
+
+- babel은 postcss의 설정(package.json의 browserslist 옵션)이 필요하므로 해당 설정이 되어있지않으면, 설정할 것
+- 적용 확인: js/main.js의 babelTest()
+
+#### CLI
+
+[docs](https://ko.parceljs.org/cli.html)
+
+- port 변경
+- bulild 폴더 변경
+- 등등..
 
 ### Webpack
 
