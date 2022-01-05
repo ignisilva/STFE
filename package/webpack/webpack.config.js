@@ -18,7 +18,7 @@ module.exports = {
       {
         test: /\.s?css$/,
         // use 순서 중요, 뒤쪽 loader부터 처리됨
-        use: ["style-loader", "css-loader", "sass-loader"],
+        use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"],
       },
     ],
   },
