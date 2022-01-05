@@ -2855,7 +2855,203 @@ getProperty(person, "name");
 - 매우 꼼꼼한 구성
 - 중/대형 프로젝트에 적합
 
-####
+#### webpack initalize
+
+- $ npm install -D webpack webpack-cli webpack-dev-server@next // webpack-dev-server@next (@next인 이유는 cli와 메이저 버전을 맞춰주기 위함)
+- package.json 수정
+  - ```
+      "scripts": {
+        "dev": "webpack-dev-server --mode development",
+        "build": "webpack --mode production"
+      },
+    ```
+
+#### entry, output
+
+[webpack.config.js docs](https://webpack.js.org/configuration/)
+
+- webpack.config.js 생성
+
+  - ```
+      const path = require("path");
+
+      module.exports = {
+        // 파일을 읽어들이기 시작하는 진입점 설정
+        entry: "./js/main.js",
+
+        // 결과물(번들)을 반환하는 설정
+        output: {
+          // path: path.resolve(__dirname, "dist"), // path 옵션은 반드시 절대 경로 명시, default는 dist
+          // filename: "main.js", // default는 main.js
+          clean: true, // 빌드시, 기존에 생성된 dist 제거 후 재 생성
+        },
+      };
+    ```
+
+- npm run build로 확인
+
+#### plugins
+
+- $ npm i --save-dev html-webpack-plugin
+
+- webpack.config.js 추가
+
+  - ```
+      const HtmlPlugin = require("html-webpack-plugin");
+
+      ...
+      // 번들링 후, 결과물의 처리 방식 등 다양한 플러그인들을 설정
+      plugins: [
+        new HtmlPlugin({
+          template: "./index.html",
+        }),
+      ],
+    ```
+
+#### 정적 파일 연결
+
+- $ npm i --save-dev copy-webpack-plugin
+- webpack.config.js 추가
+
+  - ```
+      ...
+      const CopyPlugin = require("copy-webpack-plugin");
+
+      ...
+      // 번들링 후, 결과물의 처리 방식 등 다양한 플러그인들을 설정
+      plugins: [
+        ...,
+        new CopyPlugin({
+          patterns: [
+            {
+              from: "static",
+            },
+          ],
+        }),
+      ],
+    ```
+
+#### Module
+
+- module을 이용하여, css 파일 read & build
+
+  - $ npm i -D css-loader style-loader
+  - main.js
+    - ```
+        import '../css/main.css'
+      ```
+
+- webpack.config.js 수정
+
+  - ```
+      module.exports = {
+        ...,
+        module: {
+          rules: [
+            {
+              test: /\.css$/,
+              // use 순서 중요
+              use: ["style-loader", "css-loader"],
+            },
+          ],
+        },
+      }
+    ```
+
+#### SCSS
+
+- $ npm i -D sass-loader sass
+
+- dir 및 file 확장자 변경: css -> scss
+- main.js 수정
+  - import './css/main.css'
+  - import './scss/main.scss'
+- webpack.config.js 수정
+  - ```
+      module: {
+        rules: [
+          {
+            test: /\.s?css$/,
+            // use 순서 중요, 뒤쪽 loader부터 처리됨
+            use: ["style-loader", "css-loader", "sass-loader"],
+          },
+        ],
+      },
+    ```
+
+#### Autoprefixer
+
+- $ npm i -D postcss autoprefixer postcss-loader
+- webpack.config.js 추가
+  - ```
+      module: {
+        rules: [
+          {
+            test: /\.s?css$/,
+            // use 순서 중요, 뒤쪽 loader부터 처리됨
+            use: ["style-loader", "css-loader", "postcss-loader", "sass-loader"],
+          },
+        ],
+      },
+    ```
+- package.json 추가
+  - ```
+      "browserslist": [
+        "> 1%",
+        "last 2 versions"
+      ]
+    ```
+
+#### Babel
+
+- $ npm i -D @babel/core @babel/preset-env @babel/plugin-transform-runtime babel-loader
+- webpack.config.js 추가
+  - ```
+      module: {
+        rules: [
+          ...,
+          {
+            test: /\.js/,
+            use: [
+              'babel-loader'
+            ]
+          }
+        ],
+      },
+    ```
+- .babelrc.js 생성
+  - ```
+      module.exports = {
+        presets: ["@babel/preset-env"],
+        plugin: [["@babel/plugin-transform-runtime"]],
+      };
+    ```
+
+#### Netlify 배포
+
+- .gitignore 추가
+
+  - ```
+      .cache
+      .DS_Store
+      node_modules
+      dist
+    ```
+
+- netlify에서 해당 프로젝트 Repo 선택
+
+- 설정
+  - Owner: 기본
+  - Branch to deploy: 기본
+  - build command:
+  - pulish directory:
+
+#### Npx Degit
+
+- npx degit을 통해, 개발 템플릿을 git log 초기화 시켜 가져올 때 사용
+
+- $ npx degit GITHUB_USERNAME/REPOGITORY_NAME PROJECT_NAME_WHAT_YOU_WANT
+  - ex) npm degit ParkYoungWoong/webpack-template-basic webpack-template-test
 
 ## Vue
 
