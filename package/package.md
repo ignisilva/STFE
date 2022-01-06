@@ -4105,3 +4105,154 @@ React 중요 키워드
 
 - 모던
   - 컴포넌트를 활용한 프론트엔드
+
+### React Component
+
+#### Create Component
+
+- before Hooks
+
+  - 컴포넌트 내부에 상태가 있다면?
+    - class
+  - 컴포넌트 내부에 상태가 없다면?
+    - 라이프 사이클 사용해야 한다면
+      - class
+    - 라이프 사이클 관계 없다면
+      - function
+
+- after Hooks
+
+  - class, function 구분 없이 사용
+
+- Class Component
+
+  - ```
+      // 정의
+      export class ClassComponent extends React.Component {
+        render() {
+          return (
+            <div>Hello</div>
+          );
+        }
+      }
+
+      // 사용
+      <ClassComponent />
+    ```
+
+- Function Component
+
+  - ```
+      // 정의
+      export function FuncComponent() {
+        return <div>Hello</div>;
+      }
+
+      export function FuncComponent = () => <div>Hello</div>;
+
+      // 사용
+      <FuncComponent />
+    ```
+
+#### React.createElement
+
+- React.createElement 기본형
+
+```
+React.createElement(
+  type,         // 태그명 | 리액트 컴포넌트 | React.Fragment (<></>)
+  [props],      // 리액트 컴포넌트에 넣어줄 데이터 객체
+  [...children] // 자식으로 넣어줄 요소들
+);
+```
+
+```
+const Component = () => React.createElement('p', null, 'React Component Type')
+
+ReactDom.render(
+  React.createElement(Component, null, null),
+  document.querySelector("#root");
+)
+```
+
+#### JSX
+
+- React.createElement를 사용한 순수 JS를 구현할 수 도 있으나, 마크업 구조를 한 눈에 보기 어렵다는 단점
+- JSX file은 Babel에 의해 JS로 컴파일된다.
+
+JSX 사용 이유?
+
+- 가독성
+- babel 등을 사용한 컴파일 시, 문법 오류를 미리 인지하기 쉬움
+
+#### Props / State
+
+Props
+
+- 컴포넌트 외부에서 컴포넌트 내부에 주는 데이터
+- 변경시, re-Render (props의 변경은 내부가 아닌 외부에서 일어난다)
+
+State
+
+- 컴포넌트 내부에서 변경 할 수 있는 데이터
+- 변경시, re-Render (단, 변경시, React.Component 내부 함수인, setState()를 사용해야 함)
+
+#### Event Handling
+
+- JSX에서 간단하게 event handling 가능
+- ```
+    const onClickHandler = () => {
+      console.log("clicked");
+    }
+    <button onClick={onClickHandler}>btn</button>
+  ```
+
+#### Component Lifecycle
+
+React의 Component Lifecycle은 Declarative(선언적) 라고 하는 성질을 지님
+
+Declarative?  
+각 상태를 선언해 놓고, React는 각 상태에 따른 선언이 되어있다면, 해당 상태에 지정된 행동을 수행
+
+React 상태 (v16.3 이전)
+
+- initialization
+  - setup props and states
+- Mounting
+  - componentWillMount
+  - render
+  - componentDidMount
+- Updation
+  - props
+    - componentWillReceiveProps(nextProps)
+    - shouldComponentUpdate(nextProps, nextState) (return true라면 진행, false라면 진행 X, default true)
+    - componentWillUpdate(nextProps, nextState)
+    - render
+    - componentDidUpdate(prevProps, prevState)
+  - states
+    - shouldComponentUpdate (return true라면 진행, false라면 진행 X. default true)
+    - componentWillUpdate(nextProps, nextState)
+    - render
+    - componentDidUpdate(prevProps, prevState)
+- Unmounting
+  - componentWillUnmount
+
+React 상태 (v16.3 이후)
+
+- initialization
+  - setup props and states
+- Mounting
+  - static getDerivedStateFromProps(nextProps, prevState): null | State
+  - render
+  - componentDidMount
+- Updation
+  - static getDerivedStateFromProps(nextProps, prevState): null | State
+  - shouldComponentUpdate(nextProps, nextState) (return true라면 진행, false라면 진행 X, default true)
+  - render
+  - getSnapshotBeforeUpdate(nextProps, nextState) (DOM 적용 직전, snapshot을 return)
+  - componentDidUpdate(prevProps, prevState, snapshot)
+- Unmounting
+  - componentWillUnmount
+- Error catch (번외 라이프 사이클)
+  - componentDidCatch(error, info)
+  - error boundaries 라이브러리 사용
