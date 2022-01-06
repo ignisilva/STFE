@@ -3051,7 +3051,10 @@ getProperty(person, "name");
 - npx degit을 통해, 개발 템플릿을 git log 초기화 시켜 가져올 때 사용
 
 - $ npx degit GITHUB_USERNAME/REPOGITORY_NAME PROJECT_NAME_WHAT_YOU_WANT
+
   - ex) npm degit ParkYoungWoong/webpack-template-basic webpack-template-test
+
+- npx degit과 같은 역할 = github repo 내에서 zip으로 다운로드해서 압축풀기
 
 ## Vue
 
@@ -4001,10 +4004,104 @@ export default {
 </style>
 ```
 
-#### 컴포넌트 Slot
+## React 기본
 
-#### 컴포넌트 Provide
+### React Start
 
-#### 컴포넌트 Inject
+#### React Component
 
-#### 컴포넌트 Ref
+React 중요 키워드
+
+- Angular / React / Vue
+
+  - Angular
+    - 프레임워크 지향
+    - 크로스 플랫폼 지원
+    - 웹개발에 필요한 거의 모든 기능을 포함(테스트, 애니메이션, 인증 등)
+  - vue
+    - 사용자의 기호에 따라 프레임워크 또는 UI 라이브러리까지, 유연성 지향
+  - React
+    - UI를 만들기 위한 라이브러리 (View를 다루는 라이브러리)
+
+- Component
+
+  - 내가 지은 이름 및 속성으로 이뤄진 하나의 역할을 하는 HTML 블럭
+
+- 오직 렌더링과 업데이트로 이뤄짐
+
+  - http client 등의 기타 기능을 포함하지 않음
+
+- 컴포넌트 기반 개발
+
+  - 독립적인 코드 블럭 단위(html + css + js)
+  - 작업의 단위
+
+- Virtual DOM
+
+  - 이제는 DOM을 직접 다루지 않음
+    - 가상의 DOM tree 사용
+    - 이전 상태 / 이후 상태를 비교하여 바뀐 부분을 자동으로 찾아서 변경
+
+- JSX
+
+  - js로 트랜스파일되는 문법 또는 파일 의미
+  - NOT Templates
+  - transplie to JS (Babel, TypeScript)
+
+- CSR & SSR
+
+  - CSR
+    - 클라이언트 사이드 랜더링
+    - html 다운
+    - html 내 js 다운
+    - js 내에서 React로 빌드된 js 실행 (이때까지 화면 출력 X)
+    - 랜더링 + interactable 상태
+  - SSR
+    - 서버 사이드 랜더링
+    - html 다운 (이미 어느정도 구성된 페이지므로 화면이 출력 O, 단 동적인 것은 없음)
+    - html 내 js 다운
+    - js 내에서 React로 빌드된 js 실행 (동적인 부분 가능)
+    - interactable 상태
+  - SSR이 CSR보다 조금 더 화면을 빨리 볼 수 있다.
+  - SSR이 CSR보다 화면을 미리 구성해서 줘야하므로 조금 더 부하가 있을 수 있다.
+
+- 브라우저 지원
+  - IE9 / IE10 같은 구형 브라우저는 polyfill을 필요로 한다
+
+#### 개발 환경 체크
+
+- Node.js
+  - installer
+  - nvm
+- Browser
+- Git
+- VSCode
+
+- $ nvm install X.Y.Z: node X.Y.Z 버전 다운로드
+- $ nvm use X.Y.Z: node X.Y.Z 버전 사용
+- $ nvm alias default X.Y.Z: node X.Y.Z 버전을 기본으로 사용
+
+#### React 라이브러리
+
+리액트 핵심 모듈 및 역할
+
+- react-dom
+  - 리액트 컴포넌트 => HTMLElement 연결 (RactDom.render() 함수가 해당 기능 수행)
+- react
+
+  - 리액트 컴포넌트 생성
+
+- CDN 방식으로 React를 연결시킨 뒤, 아래의 방식을 통해 react 객체를 살펴볼 수 있다
+  - console.log(react)
+  - console.log(react-dom)
+
+#### 고전 & 모던 프론트엔드
+
+- 고전
+
+  - HTML: 문서 구조
+  - CSS: 스타일
+  - JS: DOM 조작
+
+- 모던
+  - 컴포넌트를 활용한 프론트엔드
