@@ -4256,3 +4256,104 @@ React 상태 (v16.3 이후)
 - Error catch (번외 라이프 사이클)
   - componentDidCatch(error, info)
   - error boundaries 라이브러리 사용
+
+### Create React Project
+
+#### Create React App
+
+프로젝트 생성
+
+- $ npx create-react-app PROJECT_NAME
+
+생성된 후, package.json
+
+- react-scripts = create-react-app
+
+- 명령어 정리
+  - $ npm start
+    - 개발모드 실행
+  - $ npm run build
+    - 프로젝트 압축 및 난독화 등을 적용한 결과를 생성
+  - $ npm install -g serve 그리고 $ serve -s build 또는 $ npx serve -s build
+    - 빌드된 파일 실행
+    - s 옵션? 어떤 라우팅으로 요청해도 index.html을 응답하도록 함
+  - $ npm test
+    - jest로 test 실행
+  - $ npm run eject
+    - create-react-app에서 프로젝트를 추출해서 개발 환경을 커스텀하게 변경하고자 할 때 사용
+    - create-react-app에서 한번 꺼내면 되돌릴 수 없다
+
+#### ESLint
+
+- 코딩 스타일을 맞출때 도움을 주는 라이브러리 (설정한 코드 스타일대로 되있지 않으면, 표시해준다)
+- CRA로 관리되는 환경에서 eslint는 package.json의 "eslintConfig" 옵션을 통해 설정할 수 있다
+  - .eslintrc.js = "eslintConfig"
+
+#### Prettier
+
+- 의도적 수정을 가하는 코드 포맷터
+- CRA에서 prettier와 eslint 충돌 방지 (규칙을 끄기만 하므로, 다른 설정과 함께 사용하는 것이 바람직)
+  - ```
+      "eslintConfig": {
+        "extends": [
+          ...,
+          "prettier"
+        ]
+      }
+    ```
+
+#### Husky
+
+- Git Hook을 간단하게 사용할 수 있게 도와주는 라이브러리 (commit 전, push 전, CLI를 실행시킬 수 있게 도와줌)
+- commit 전에, ESLint, Prettier, npm test 등으로 확인할 때 사용
+
+#### lint-staged
+
+- git staged된 files에 대해 eslint, prettier등을 적용할 수 있다.
+
+- $ create-react-app PROJECT_NAME
+- $ cd PROJECT_NAME
+- $ npm i -D husky
+- $ npx husky intall
+- $ npm i -D lint-staged
+- $ npm i -D prettier
+- package.json 수정
+  - ```
+      "scripts": {
+        ...,
+        "prepare": "husky install",
+      },
+      "lint-staged": {
+        "**/*.js": [
+          "eslint --fix",
+          "prettier --write",
+          "git add"
+        ]
+      },
+    ```
+- $ npx husky add .husky/pre-commit "lint-staged"
+- .husky/pre-commit 수정
+  - lint-staged -> npx lint-staged
+
+#### CRA 시작 코드 이해하기
+
+- root 요소는 어디에 있는지?
+
+  - public/index.html의 div id=root 있음
+
+- 이미지를 넣는 방법
+  - 데이터 삽입 방식 (이미지가 src에 있어야 함)
+    - < img src={logo} />
+  - 링크 삽입 방식 (이미지가 public에 있어야 함)
+    - < img src="../images/logo" />
+
+#### 디버깅 (React Developer Tools)
+
+- 개발자 도구에서 react를 디버깅할 수 있게 웹스토어에서 React Developer Tools 다운
+- 개발자 도구에서 Components / Profiler 제공
+- Components
+  - 앱 컴포넌트 구조
+  - 컴포넌트 내 상세보기
+  - ...
+- Profiler
+  - 앱 데이터 로딩 시간 체크 등
