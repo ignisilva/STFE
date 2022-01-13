@@ -76,3 +76,41 @@ Event-handing
 
 - 카멜 케이스로 이벤트 선언
 - 핸들러 전달시, () 없이 전달
+
+#### Form
+
+- 사용자 입력 관련
+- 제어 / 비제어 컴포넌트 차이 이해
+
+- Controlled Component
+
+  - 사용자 입력시, React 상태를 통해 입력값 상태를 관리하는 형태
+
+- UnConrolled Component
+  - 사용자 입력시, DOM 자체에서 입력값 상태를 관리하는 형태
+  - ref를 활용해 DOM을 참조 할 수 있다(ref.current.value)
+  - 퍼포먼스, 사용성 등을 따지면 Uncontrolled component를 사용하는게 맞다
+
+#### Styling
+
+- css or scss
+  - style props로 가능하지만 잘 사용하지 않음
+  - 오버헤드 존재 등등
+  - \*.css 에서 스타일 관리
+  - hover 등 사용 X
+  - css 파일 import를 위해 Webpack등 빌드 도구 필요
+- css Modules
+  - \*.module.css 사용
+  - webpack에서 css-loader 사용
+  - css를 import해서 각 클래스 이름을 객체 참조하듯 가져올 수 있음
+- css in js
+  - styled-component 또는 emotion 라이브러리를 사용하여 css 사용
+
+#### Context
+
+- consummer를 사용하는 컴포넌트는 context 변경시, 전부 re-render
+- context에 주는 초기값은 덮어쓰기 되는데 왜 주는 것인지? : 명시하지 않았을 경우의 default 값
+- context에 적합한 데이터
+  - 로그인 정보
+  - thema
+  - ...
