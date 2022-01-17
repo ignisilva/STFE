@@ -85,11 +85,13 @@ Event-handing
 - Controlled Component
 
   - 사용자 입력시, React 상태를 통해 입력값 상태를 관리하는 형태
+  - useState() 사용
 
 - UnConrolled Component
   - 사용자 입력시, DOM 자체에서 입력값 상태를 관리하는 형태
   - ref를 활용해 DOM을 참조 할 수 있다(ref.current.value)
   - 퍼포먼스, 사용성 등을 따지면 Uncontrolled component를 사용하는게 맞다
+  - useRef() 사용
 
 #### Styling
 
@@ -105,6 +107,7 @@ Event-handing
   - css를 import해서 각 클래스 이름을 객체 참조하듯 가져올 수 있음
 - css in js
   - styled-component 또는 emotion 라이브러리를 사용하여 css 사용
+  - 주로 사용
 
 #### Context
 
