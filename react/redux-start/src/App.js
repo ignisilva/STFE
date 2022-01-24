@@ -3,7 +3,8 @@ import "./App.css";
 import { addTodo } from "./redux/actions";
 import { useReduxState } from "./hooks/useReduxState";
 import { useReduxDispatch } from "./hooks/useReduxDispatch";
-import { TodoList } from "./components/TodoList";
+import { TodoListContainer } from "./containers/TodoListContainer";
+import { TodoFormContainer } from "./containers/TodoFormContainer";
 
 function App() {
   const state = useReduxState();
@@ -20,8 +21,8 @@ function App() {
         {JSON.stringify(state)}
         <button onClick={click}>추가</button>
       </header>
-      <TodoList />
-      <TodoForm />
+      <TodoListContainer />
+      <TodoFormContainer />
     </div>
   );
 }
