@@ -16,7 +16,7 @@
 
 - redux 설정
 
-  - $ npm i redux redux-actions react-redux redux-saga redux-devtools-extension redux-actions
+  - $ npm i redux redux-actions react-redux redux-saga redux-devtools-extension redux-actions connected-react-router
   - $ npm i --save-dev @types/react-redux @types/redux-actions
 
 - antd 설정
@@ -24,7 +24,11 @@
   - $ npm i antd @ant-design/icons
 
 - axios 설정
+
   - $ npm i axios
+
+- 시간 설정
+  - $ npm i moment
 
 # 개발 순서
 
@@ -33,5 +37,10 @@
 - redux 설정
 - antd 설정
 
-- 로그인 / 로그아웃
-  - redux
+- auth
+
+  - login
+  - logout
+
+- Books
+  - getBooks

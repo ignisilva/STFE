@@ -48,7 +48,7 @@ const reducer = handleActions<AuthState, string>(
 
 export default reducer;
 
-// saga 생성
+// saga action 생성
 // auth에서 sideEffect 생기는 로직들 다룸
 export const { login, logout } = createActions("LOGIN", "LOGOUT", { prefix });
 
