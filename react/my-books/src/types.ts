@@ -15,6 +15,13 @@ export interface BookType {
   url: string;
 }
 
+export type BookReqType = {
+  title: string;
+  comment: string;
+  author: string;
+  url: string;
+};
+
 // State 형
 export interface AuthState {
   token: string | null;
