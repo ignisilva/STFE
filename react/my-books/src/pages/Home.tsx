@@ -1,15 +1,17 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
+import { logout } from "../redux/modules/auth";
 import { RootState } from "../types";
 
 export default function Home() {
+  const dispatch = useDispatch();
   const token = useSelector<RootState, string | null>(
     (state) => state.auth.token
   );
 
-  if (token !== null) {
-    return <Redirect to="/" />;
+  if (token === null) {
+    return <Redirect to="/signin" />;
   }
 
   return (
@@ -19,5 +21,7 @@ export default function Home() {
     </div>
   );
 
-  function click() {}
+  function click() {
+    dispatch(logout());
+  }
 }

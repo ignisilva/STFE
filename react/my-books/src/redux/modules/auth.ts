@@ -1,5 +1,5 @@
 import { Action, createActions, handleActions } from "redux-actions";
-import { call, put, takeEvery } from "redux-saga/effects";
+import { call, put, select, takeEvery } from "redux-saga/effects";
 import TokenService from "../../services/TokenService";
 import UserService from "../../services/UserService";
 import { AuthState, LoginReqType } from "../../types";
@@ -64,7 +64,18 @@ function* loginSaga(action: Action<LoginReqType>) {
   }
 }
 
-function* logoutSaga() {}
+function* logoutSaga() {
+  try {
+    yield put(pending());
+    const token: string = yield select((state) => state.auth.token);
+    yield call(UserService.logout, token);
+  } catch (error: any) {
+    // error가 났더라도, local에서는 로그아웃 처리를 해줘야 하므로, error를 따로 처리하지 않음
+  } finally {
+    TokenService.remove();
+    yield put(success(null));
+  }
+}
 
 export function* authSaga() {
   yield takeEvery(`${prefix}/LOGIN`, loginSaga);
